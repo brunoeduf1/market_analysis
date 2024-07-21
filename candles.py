@@ -1,14 +1,14 @@
 import MetaTrader5 as mt5
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 
-def getCandles(ativo):
+def get_candles(ativo):
 
     # Obtém os dados das candles
     candles = mt5.copy_rates_range(
         ativo,
         mt5.TIMEFRAME_D1,
-        datetime(2024, 7, 11),
+        datetime.today()- timedelta(days=1460),
         datetime.today(),
     )
 
