@@ -8,7 +8,7 @@ def get_candles(ativo):
     candles = mt5.copy_rates_range(
         ativo,
         mt5.TIMEFRAME_D1,
-        datetime.today()- timedelta(days=1460),
+        datetime.today() - timedelta(days=1460), # Últimos 3 anos
         datetime.today(),
     )
 

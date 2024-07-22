@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from ta.trend import SMAIndicator, EMAIndicator
-from ta.momentum import RSIIndicator
+import mplfinance as mpf
 
 def analyze_trend(data, ativo):
 
@@ -36,15 +36,36 @@ def analyze_trend(data, ativo):
     # Filtrar o DataFrame para incluir apenas os dados dos últimos 12 meses
     data_last_year = data.loc[one_year_ago:]
 
-    # Visualizar os dados
-    plt.figure(figsize=(14, 7))
-    plt.plot(data_last_year['close'], label='Preço de Fechamento')
-    plt.plot(data_last_year['EMA9'], label='Média exp 9')
-    plt.plot(data_last_year['SMA21'], label='Média arit. 21')
-    plt.plot(data_last_year['SMA80'], label='Média arit. 80')
-    plt.plot(data_last_year['SMA200'], label='Média arit. 200')
-    plt.title('Tendência de ' + tendencia  + ' do ativo ' + ativo)
-    plt.legend()
+    # Configurar o estilo dos candles
+    mc = mpf.make_marketcolors(up='g', down='r', edge='i', wick='i', volume='in', ohlc='i')
+    s = mpf.make_mpf_style(marketcolors=mc)
+
+    add_plot = [
+        mpf.make_addplot(data_last_year['EMA9'], color='green', width=0.5, label='Média exp 9'),
+        mpf.make_addplot(data_last_year['SMA21'], color='yellow', width=1, label='Média arit. 21'),
+        mpf.make_addplot(data_last_year['SMA80'], color='red', width=1.5, label='Média arit. 80'),
+        mpf.make_addplot(data_last_year['SMA200'], color='blue', width=2, label='Média arit. 200')
+    ]
+
+    # Plotar os dados com candles
+    fig, axlist = mpf.plot(data_last_year,
+              type = 'candle', 
+              style = s, 
+              volume = False,
+              addplot = add_plot, 
+              title = ativo, 
+              ylabel ='Preço',
+              returnfig=True
+              )
+    
+    ax = axlist[0]  # Pega o eixo principal do gráfico
+    textstr = 'Tendência Atual: ' + tendencia + '\nSetup: ' + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
+    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+    ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=8, verticalalignment='top', bbox=props)
+
     plt.show()
 
     return tendencia
+
+
+
