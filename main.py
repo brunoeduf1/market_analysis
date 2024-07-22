@@ -20,8 +20,9 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-candles = get_candles('PETR4')
+ativo = 'BBDC4'
+candles = get_candles(ativo)
 print(candles)
 
 # Analisar tendência
-analyze_trend(candles)
+analyze_trend(candles, ativo)
