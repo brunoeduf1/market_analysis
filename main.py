@@ -1,5 +1,5 @@
 import MetaTrader5 as mt5
-from symbols import get_candles
+from symbols import get_candles, get_symbols_list
 from moving_averages import analyze_trend
 
 # Inicializar o MetaTrader 5
@@ -18,9 +18,11 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-symbol = 'PCAR3'
+symbol = 'AZUL4'
 data = get_candles(symbol)
-#analyze_trend(data, symbol)
-print(data)
+analyze_trend(data, symbol)
+#print(data)
+indices = get_symbols_list()
+print(indices)
 
 mt5.shutdown()

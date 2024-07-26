@@ -1,4 +1,3 @@
-
 # Setups 9.1, 9.2, 9.3 e PC de Larry Williams
 
 def setup_9_1(data):
@@ -38,6 +37,7 @@ def setup_9_2(data):
     return data
 
 def setup_9_3(data):
+    
     data['EMA9_diff'] = data['EMA9'].diff()
     
     last_candle_index = len(data) - 1
@@ -60,8 +60,6 @@ def setup_9_3(data):
             data['setup_9_3_sell'] = True
     
     return data
-
-    
 
 def setup_PC(data):
     last_candle_index = len(data) - 1

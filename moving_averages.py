@@ -65,10 +65,10 @@ def analyze_trend(data, symbol):
 
     if (data['setup_9_1_buy'].iloc[len(data) - 1] or data['setup_9_2_buy'].iloc[len(data) - 1] or data['setup_9_3_buy'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):
         max_price = data['high'].iloc[len(data) - 1]
-        ax.hlines(max_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='black', linestyles='dashed', linewidth=2, label='Entrada COMPRA')
+        ax.hlines(max_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linestyles='dashed', linewidth=2, label='Entrada COMPRA')
     if (data['setup_9_1_sell'].iloc[len(data) - 1] or data['setup_9_2_sell'].iloc[len(data) - 1] or data['setup_9_3_sell'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):
         min_price = data['low'].iloc[len(data) - 1]
-        ax.hlines(min_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='black', linewidth=2, label='Entrada VENDA')
+        ax.hlines(min_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linewidth=2, label='Entrada VENDA')
 
     textstr = 'Tendência: ' + tendencia + '\n' + check_setups(data) + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
