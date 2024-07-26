@@ -18,9 +18,9 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-symbol = 'PETR4'
+symbol = 'PCAR3'
 data = get_candles(symbol)
-analyze_trend(data, symbol)
-#print(candles)
+#analyze_trend(data, symbol)
+print(data)
 
 mt5.shutdown()

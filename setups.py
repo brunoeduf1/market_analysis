@@ -1,6 +1,7 @@
 
-def setup_9_1(data):
+# Setups 9.1, 9.2, 9.3 e PC de Larry Williams
 
+def setup_9_1(data):
     data['EMA9_diff'] = data['EMA9'].diff()
     
     last_candle_index = len(data) - 1
@@ -19,29 +20,61 @@ def setup_9_1(data):
     return data
 
 def setup_9_2(data):
+    last_candle_index = len(data) - 1
+
     data['setup_9_2_buy'] = False
     data['setup_9_2_sell'] = False
     
-    last_candle_index = len(data) - 1
-    
     # Setup 9.2 de Compra
-    if data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1] and data['close'].iloc[last_candle_index] < data['low'].iloc[last_candle_index - 1]:
-        data.at[last_candle_index, 'setup_9_2_buy'] = True
+    if (data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1] and
+        data['close'].iloc[last_candle_index] < data['low'].iloc[last_candle_index - 1]):
+        data['setup_9_2_buy'] = True
     
     # Setup 9.2 de Venda
-    if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1] and data['close'].iloc[last_candle_index] > data['high'].iloc[last_candle_index - 1]:
-        data.at[last_candle_index, 'setup_9_2_sell'] = True
+    if (data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1] and 
+        data['close'].iloc[last_candle_index] > data['high'].iloc[last_candle_index - 1]):
+        data['setup_9_2_sell'] = True
     
     return data
 
 def setup_9_3(data):
-    data['setup_9_3_buy'] = (data['high'].shift(1) < data['high']) & (data['close'] > data['high'].shift(1))
-    data['setup_9_3_sell'] = (data['low'].shift(1) > data['low']) & (data['close'] < data['low'].shift(1))
+    data['EMA9_diff'] = data['EMA9'].diff()
+    
+    last_candle_index = len(data) - 1
+    
+    data['setup_9_3_buy'] = False
+    data['setup_9_3_sell'] = False
+    
+    # Setup 9.3 de Compra
+    if data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1]:
+        if (data['close'].iloc[last_candle_index - 2] <= data['open'].iloc[last_candle_index - 2] and
+            data['close'].iloc[last_candle_index - 1] < data['high'].iloc[last_candle_index - 2] and
+            data['close'].iloc[last_candle_index] < data['high'].iloc[last_candle_index - 2]):
+            data['setup_9_3_buy'] = True
+    
+    # Setup 9.3 de Venda
+    if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1]:
+        if (data['close'].iloc[last_candle_index - 2] >= data['open'].iloc[last_candle_index - 2] and
+            data['close'].iloc[last_candle_index - 1] > data['low'].iloc[last_candle_index - 2] and
+            data['close'].iloc[last_candle_index] > data['low'].iloc[last_candle_index - 2]):
+            data['setup_9_3_sell'] = True
+    
     return data
 
+    
+
 def setup_PC(data):
-    data['setup_PC_buy'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
-    data['setup_PC_sell'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
+    last_candle_index = len(data) - 1
+
+    data['setup_PC_buy'] = False
+    data['setup_PC_sell'] = False
+
+    if data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1]:
+        data['setup_PC_buy'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
+    
+    if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1]:
+        data['setup_PC_sell'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
+
     return data
 
 def apply_setups(data):
