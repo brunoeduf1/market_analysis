@@ -1,7 +1,5 @@
 import MetaTrader5 as mt5
-from datetime import datetime
-import pandas as pd
-from candles import get_candles
+from symbols import get_candles
 from moving_averages import analyze_trend
 
 # Inicializar o MetaTrader 5
@@ -20,8 +18,9 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-ativo = 'PETR4'
-candles = get_candles(ativo)
+symbol = 'PETR4'
+data = get_candles(symbol)
+analyze_trend(data, symbol)
+#print(candles)
 
-# Analisar tendência
-analyze_trend(candles, ativo)
+mt5.shutdown()

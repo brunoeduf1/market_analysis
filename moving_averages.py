@@ -1,10 +1,10 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
+from setups import apply_setups, check_setups
 
-def analyze_trend(data, ativo):
+def analyze_trend(data, symbol):
 
     # Garantir que os dados estejam ordenados por data
     data.sort_values('time', inplace=True)
@@ -30,6 +30,10 @@ def analyze_trend(data, ativo):
     tendencia = determinar_tendencia(data)
     print(f"A tendência atual do ativo é: {tendencia}")
 
+    # Analisar se acionou algum setup
+    data = apply_setups(data)
+    print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
+
     # Obter a data de um ano atrás
     one_year_ago = pd.Timestamp.now() - pd.DateOffset(years=1)
 
@@ -53,19 +57,16 @@ def analyze_trend(data, ativo):
               style = s, 
               volume = False,
               addplot = add_plot, 
-              title = ativo, 
+              title = symbol, 
               ylabel ='Preço',
               returnfig=True
               )
     
     ax = axlist[0]  # Pega o eixo principal do gráfico
-    textstr = 'Tendência Atual: ' + tendencia + '\nSetup: ' + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
+    textstr = 'Tendência: ' + tendencia + '\n' + check_setups(data) + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=8, verticalalignment='top', bbox=props)
 
     plt.show()
 
     return tendencia
-
-
-
