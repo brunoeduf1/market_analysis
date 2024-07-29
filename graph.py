@@ -41,26 +41,37 @@ def plot_graph(symbol, data, trend_result):
 
     # Configurar o estilo dos candles
     mc = mpf.make_marketcolors(up='g', down='r', edge='i', wick='i', volume='in', ohlc='i')
-    s = mpf.make_mpf_style(marketcolors=mc)
+    s = mpf.make_mpf_style(marketcolors=mc, facecolor='#1C1C1C', rc={'text.color': 'white', 'axes.labelcolor': 'white', 'xtick.color': 'white', 'ytick.color': 'white'})  # Fundo grafite e texto branco
 
     add_plot = [
-        mpf.make_addplot(data_last_3_months['EMA9'], color='green', width=0.5, label='Média exp 9'),
-        mpf.make_addplot(data_last_3_months['SMA21'], color='yellow', width=1, label='Média arit. 21'),
-        mpf.make_addplot(data_last_3_months['SMA80'], color='red', width=1.5, label='Média arit. 80'),
-        mpf.make_addplot(data_last_3_months['SMA200'], color='blue', width=2, label='Média arit. 200')
+        mpf.make_addplot(data_last_3_months['EMA9'], color='green', width=0.5),
+        mpf.make_addplot(data_last_3_months['SMA21'], color='yellow', width=1),
+        mpf.make_addplot(data_last_3_months['SMA80'], color='red', width=1.5),
+        mpf.make_addplot(data_last_3_months['SMA200'], color='blue', width=2)
     ]
 
-    # Plotar os dados com candles
+    # Verificar se a coluna "real_volume" está presente no DataFrame
+    if 'real_volume' in data_last_3_months.columns:
+        volume = True
+        ylabel_lower = 'Volume'
+        data_last_3_months.rename(columns={'real_volume': 'volume'}, inplace=True)  # Renomear a coluna para 'volume' para compatibilidade com mplfinance
+    else:
+        volume = False
+        ylabel_lower = None
+
+    # Plotar os dados com candles e volume (se disponível)
     fig, axlist = mpf.plot(data_last_3_months,
-              type = 'candle', 
-              style = s, 
-              volume = False,
-              addplot = add_plot, 
-              title = symbol, 
-              ylabel ='Preço',
+              type='candle', 
+              style=s, 
+              volume=volume,  # Adicionar gráfico de volume se disponível
+              addplot=add_plot, 
+              title=symbol, 
+              ylabel='Preço',
+              ylabel_lower=ylabel_lower,  # Rótulo para o gráfico de volume se disponível
               returnfig=True
               )
     
+    fig.patch.set_facecolor('#1C1C1C')
     ax = axlist[0]  # Pega o eixo principal do gráfico
 
     if (data['setup_9_1_buy'].iloc[len(data) - 1] or data['setup_9_2_buy'].iloc[len(data) - 1] or data['setup_9_3_buy'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):

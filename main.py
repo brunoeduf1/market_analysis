@@ -2,7 +2,6 @@ import MetaTrader5 as mt5
 from symbols import get_candles, get_symbols_list
 from graph import analyze_trend, plot_graph
 from setups import apply_setups, check_setups
-from services import get_symbol_data
 
 # Inicializar o MetaTrader 5
 if not mt5.initialize():
@@ -20,7 +19,7 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-symbol = 'PETR4'
+symbol = 'USIM5'
 data = get_candles(symbol)
 trend = analyze_trend(data)
 
