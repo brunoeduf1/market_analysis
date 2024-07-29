@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
 from setups import check_setups
+from services import get_symbol_data
 
 def analyze_trend(data):
 
@@ -32,8 +33,6 @@ def analyze_trend(data):
     return trend_result
 
 def plot_graph(symbol, data, trend_result):
-    data.set_index('time', inplace=True)
-    
     # Obter a data de três meses atrás
     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(months=3)
 
@@ -70,9 +69,22 @@ def plot_graph(symbol, data, trend_result):
     if (data['setup_9_1_sell'].iloc[len(data) - 1] or data['setup_9_2_sell'].iloc[len(data) - 1] or data['setup_9_3_sell'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):
         min_price = data['low'].iloc[len(data) - 1]
         ax.hlines(min_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linewidth=2, label='Entrada VENDA')
+    
+    symbol_data = get_symbol_data(symbol)
 
-    textstr = 'Tendência: ' + trend_result + '\n' + check_setups(data) + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
+    textstr = (
+        'Tendência: ' + trend_result + '\n' +
+        check_setups(data) + '\n' +
+        'IV Rank: ' + str(symbol_data['iv_1y_rank']) + '\n' +
+        'IV Percentil: ' + str(symbol_data['iv_1y_percentile']) +'\n' +
+        'Vol Implicita: ' + str(symbol_data['iv_current'])
+    )
+
+    # Adicionar um novo eixo para o texto
+    ax_text = fig.add_axes([0.05, 0.8, 0.2, 0.2], frameon=False)  # [left, bottom, width, height]
+    ax_text.axis('off')  # Desativar os eixos
+
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=8, verticalalignment='top', bbox=props)
+    ax_text.text(0, 0.5, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
 
     plt.show()
