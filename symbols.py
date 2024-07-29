@@ -26,7 +26,7 @@ def get_candles(symbol):
     candles = mt5.copy_rates_range(
         symbol,
         mt5.TIMEFRAME_D1,
-        datetime.today() - timedelta(days=1460), # Últimos 3 anos
+        datetime.today() - timedelta(days=548), # Um ano e meio atrás
         datetime.today(),
     )
 

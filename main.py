@@ -1,6 +1,7 @@
 import MetaTrader5 as mt5
 from symbols import get_candles, get_symbols_list
-from moving_averages import analyze_trend
+from graph import analyze_trend, plot_graph
+from setups import apply_setups, check_setups
 
 # Inicializar o MetaTrader 5
 if not mt5.initialize():
@@ -18,9 +19,22 @@ else:
     print(f"Login bem-sucedido: {account_info}")
 
 # Exibir candles
-symbol = 'AZUL4'
+symbol = 'BRKM5'
 data = get_candles(symbol)
-analyze_trend(data, symbol)
+trend = analyze_trend(data)
+
+# Analisar se acionou algum setup
+data = apply_setups(data)
+print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
+
+if (data['setup_9_1_buy'].iloc[len(data)-1] or data['setup_9_1_sell'].iloc[len(data)-1] or
+    data['setup_9_2_buy'].iloc[len(data)-1] or data['setup_9_2_sell'].iloc[len(data)-1] or
+    data['setup_9_3_buy'].iloc[len(data)-1] or data['setup_9_3_sell'].iloc[len(data)-1] or
+    data['setup_PC_buy'].iloc[len(data)-1] or data['setup_PC_sell'].iloc[len(data)-1]):
+    print(symbol + ' ' + check_setups(data))
+
+plot_graph(symbol, data, trend)
+
 #print(data)
 indices = get_symbols_list()
 print(indices)

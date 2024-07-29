@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
-from setups import apply_setups, check_setups
+from setups import check_setups
 
-def analyze_trend(data, symbol):
+def analyze_trend(data):
 
     # Garantir que os dados estejam ordenados por data
     data.sort_values('time', inplace=True)
@@ -19,7 +19,7 @@ def analyze_trend(data, symbol):
     data['EMA9'] =  EMAIndicator(data['close'], window=9).ema_indicator()
 
     # Função para determinar a tendência
-    def determinar_tendencia(df):
+    def determine_trend(df):
         if df['close'].iloc[-1] > df['EMA9'].iloc[-1] > df['SMA21'].iloc[-1] > df['SMA80'].iloc[-1]:
             return 'ALTA'
         elif df['close'].iloc[-1] < df['EMA9'].iloc[-1] < df['SMA21'].iloc[-1] < df['SMA80'].iloc[-1]:
@@ -27,16 +27,17 @@ def analyze_trend(data, symbol):
         else:
             return 'ACUMULAÇÃO'
 
-    tendencia = determinar_tendencia(data)
+    trend_result = determine_trend(data)
 
-    # Analisar se acionou algum setup
-    data = apply_setups(data)
-    print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
+    return trend_result
 
-    # Obter a data de um ano atrás
+def plot_graph(symbol, data, trend_result):
+    data.set_index('time', inplace=True)
+    
+    # Obter a data de três meses atrás
     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(months=3)
 
-    # Filtrar o DataFrame para incluir apenas os dados dos últimos 12 meses
+    # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses
     data_last_3_months = data.loc[tree_months_ago:]
 
     # Configurar o estilo dos candles
@@ -70,10 +71,8 @@ def analyze_trend(data, symbol):
         min_price = data['low'].iloc[len(data) - 1]
         ax.hlines(min_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linewidth=2, label='Entrada VENDA')
 
-    textstr = 'Tendência: ' + tendencia + '\n' + check_setups(data) + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
+    textstr = 'Tendência: ' + trend_result + '\n' + check_setups(data) + '\nIV Rank: ' + '\nIV Percentil: ' + '\nBeta: '
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=8, verticalalignment='top', bbox=props)
 
     plt.show()
-
-    return tendencia
