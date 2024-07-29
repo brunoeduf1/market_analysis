@@ -74,12 +74,16 @@ def plot_graph(symbol, data, trend_result):
     fig.patch.set_facecolor('#1C1C1C')
     ax = axlist[0]  # Pega o eixo principal do gráfico
 
-    if (data['setup_9_1_buy'].iloc[len(data) - 1] or data['setup_9_2_buy'].iloc[len(data) - 1] or data['setup_9_3_buy'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):
-        max_price = data['high'].iloc[len(data) - 1]
-        ax.hlines(max_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linestyles='dashed', linewidth=2, label='Entrada COMPRA')
-    if (data['setup_9_1_sell'].iloc[len(data) - 1] or data['setup_9_2_sell'].iloc[len(data) - 1] or data['setup_9_3_sell'].iloc[len(data) - 1] or data['setup_PC_buy'].iloc[len(data) - 1]):
-        min_price = data['low'].iloc[len(data) - 1]
-        ax.hlines(min_price, xmin=len(data_last_3_months)-1, xmax=len(data_last_3_months), colors='limegreen', linewidth=2, label='Entrada VENDA')
+    # Adicionar setas para compra e venda
+    if (data['setup_9_1_buy'].iloc[-1] or data['setup_9_2_buy'].iloc[-1] or data['setup_9_3_buy'].iloc[-1] or data['setup_PC_buy'].iloc[-1]):
+        max_price = data['high'].iloc[-1]
+        ax.annotate('', xy=(len(data_last_3_months)-1, max_price), xytext=(len(data_last_3_months)-1, max_price + (max_price * 0.02)),
+                    arrowprops=dict(facecolor='limegreen', shrink=0.05, width=2, headwidth=8), label='Entrada COMPRA')
+
+    if (data['setup_9_1_sell'].iloc[-1] or data['setup_9_2_sell'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
+        min_price = data['low'].iloc[-1]
+        ax.annotate('', xy=(len(data_last_3_months)-1, min_price), xytext=(len(data_last_3_months)-1, min_price - (min_price * 0.02)),
+                    arrowprops=dict(facecolor='red', shrink=0.05, width=2, headwidth=8), label='Entrada VENDA')
     
     symbol_data = get_symbol_data(symbol)
 

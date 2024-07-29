@@ -1,6 +1,8 @@
 import MetaTrader5 as mt5
 import pandas as pd
 from datetime import datetime, timedelta
+from graph import analyze_trend, plot_graph
+from setups import apply_setups, check_setups
 
 symbols_list = [
     'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
@@ -38,3 +40,17 @@ def get_candles(symbol):
 
 def get_symbols_list():
     return symbols_list
+
+def process_symbol(symbol):
+    try:
+        data = get_candles(symbol)
+        data = apply_setups(data)
+
+        if (data['setup_9_1_buy'].iloc[-1] or data['setup_9_1_sell'].iloc[-1] or
+            data['setup_9_2_buy'].iloc[-1] or data['setup_9_2_sell'].iloc[-1] or
+            data['setup_9_3_buy'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or
+            data['setup_PC_buy'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
+            print(symbol + ' ' + check_setups(data))
+
+    except Exception as e:
+        print(f"Erro ao processar {symbol}: {e}")
