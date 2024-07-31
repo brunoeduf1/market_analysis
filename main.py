@@ -20,10 +20,10 @@ else:
 
 # Analisar se acionou algum setup
 symbols = get_symbols_list()
-#for symbol in symbols:
-#    process_symbol(symbol)
+for symbol in symbols:
+    process_symbol(symbol)
 
-symbol = 'KLBN11'
+symbol = 'BOVA11'
 data = get_candles(symbol)
 trend = analyze_trend(data)
 data = apply_setups(data)

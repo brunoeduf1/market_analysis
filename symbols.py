@@ -44,6 +44,7 @@ def get_symbols_list():
 def process_symbol(symbol):
     try:
         data = get_candles(symbol)
+        trend = analyze_trend(data)
         data = apply_setups(data)
 
         if (data['setup_9_1_buy'].iloc[-1] or data['setup_9_1_sell'].iloc[-1] or
@@ -51,6 +52,7 @@ def process_symbol(symbol):
             data['setup_9_3_buy'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or
             data['setup_PC_buy'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
             print(symbol + ' ' + check_setups(data))
+            #plot_graph(symbol, data, trend)
 
     except Exception as e:
         print(f"Erro ao processar {symbol}: {e}")

@@ -19,6 +19,9 @@ def analyze_trend(data):
     # Calcular média exponencial de 9 períodos
     data['EMA9'] =  EMAIndicator(data['close'], window=9).ema_indicator()
 
+    # Calcular a media de 21 no volume
+    data['SMA21_vol'] = SMAIndicator(data['real_volume'], window=21).sma_indicator()
+
     # Função para determinar a tendência
     def determine_trend(df):
         if df['close'].iloc[-1] > df['EMA9'].iloc[-1] > df['SMA21'].iloc[-1] > df['SMA80'].iloc[-1]:
@@ -47,7 +50,8 @@ def plot_graph(symbol, data, trend_result):
         mpf.make_addplot(data_last_3_months['EMA9'], color='green', width=0.5),
         mpf.make_addplot(data_last_3_months['SMA21'], color='yellow', width=1),
         mpf.make_addplot(data_last_3_months['SMA80'], color='red', width=1.5),
-        mpf.make_addplot(data_last_3_months['SMA200'], color='blue', width=2)
+        mpf.make_addplot(data_last_3_months['SMA200'], color='blue', width=2),
+        mpf.make_addplot(data_last_3_months['SMA21_vol'], panel=1, color='yellow', width=1)
     ]
 
     # Verificar se a coluna "real_volume" está presente no DataFrame
@@ -100,6 +104,6 @@ def plot_graph(symbol, data, trend_result):
     ax_text.axis('off')  # Desativar os eixos
 
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    ax_text.text(0, 0.5, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
+    ax_text.text(0, 0.7, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
 
     plt.show()
