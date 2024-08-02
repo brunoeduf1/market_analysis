@@ -4,6 +4,7 @@ from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
 from setups import check_setups
 from services import get_symbol_data
+from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 def analyze_trend(data):
 
@@ -89,14 +90,17 @@ def plot_graph(symbol, data, trend_result):
         ax.annotate('', xy=(len(data_last_3_months)-1, min_price), xytext=(len(data_last_3_months)-1, min_price - (min_price * 0.02)),
                     arrowprops=dict(facecolor='red', shrink=0.05, width=2, headwidth=8), label='Entrada VENDA')
     
-    symbol_data = get_symbol_data(symbol)
+    stocks = get_symbol_data()
+    iv_rank = get_iv_1y_rank(stocks, symbol)
+    iv_percentil = get_iv_1y_percentile(stocks, symbol)
+    iv_current = get_iv_current(stocks, symbol)
 
     textstr = (
         'Tendência: ' + trend_result + '\n' +
         check_setups(data) + '\n' +
-        'IV Rank: ' + str(symbol_data['iv_1y_rank']) + '\n' +
-        'IV Percentil: ' + str(symbol_data['iv_1y_percentile']) +'\n' +
-        'Vol Implicita: ' + str(symbol_data['iv_current'])
+        'IV Rank: ' + str(iv_rank) + '\n' +
+        'IV Percentil: ' + str(iv_percentil) +'\n' +
+        'Vol Implicita: ' + str(iv_current)
     )
 
     # Adicionar um novo eixo para o texto

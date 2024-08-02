@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from graph import analyze_trend, plot_graph
 from setups import apply_setups, check_setups
+from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 symbols_list = [
     'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
@@ -12,7 +13,7 @@ symbols_list = [
     'CSNA3', 'CVCB3', 'CYRE3', 'DXCO3', 'ECOR3',
     'EGIE3', 'ELET3', 'EMBR3', 'ENEV3', 'EQTL3',
     'EZTC3', 'GGBR4', 'GOLL4', 'GOAU4', 'HAPV3',
-    'HYPE3', 'IGTI11O', 'IRBR3', 'ITSA4', 'ITUB4',
+    'HYPE3', 'IGTI11', 'IRBR3', 'ITSA4', 'ITUB4',
     'JBSS3', 'JHSF3', 'KLBN11', 'LREN3', 'LWSA3',
     'MGLU3', 'MRFG3', 'MRVE3', 'MULT3', 'NTCO3',
     'PCAR3', 'PETR4', 'PETZ3', 'PRIO3', 'QUAL3',
@@ -41,7 +42,7 @@ def get_candles(symbol):
 def get_symbols_list():
     return symbols_list
 
-def process_symbol(symbol):
+def process_symbol(stocks, symbol):
     try:
         data = get_candles(symbol)
         trend = analyze_trend(data)
@@ -51,7 +52,10 @@ def process_symbol(symbol):
             data['setup_9_2_buy'].iloc[-1] or data['setup_9_2_sell'].iloc[-1] or
             data['setup_9_3_buy'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or
             data['setup_PC_buy'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
-            print(symbol + ' ' + check_setups(data))
+            print(symbol + ' - ' + check_setups(data) + 
+                  ' - IV Rank: ' + str(get_iv_1y_rank(stocks, symbol)) + 
+                  ' - IV Percentil: ' + str(get_iv_1y_percentile(stocks, symbol)) +
+                  ' - Vol Implicita: ' + str(get_iv_current(stocks, symbol)))
             #plot_graph(symbol, data, trend)
 
     except Exception as e:

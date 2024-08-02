@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def get_symbol_data(symbol):
+def get_symbol_data():
     try:
         url="https://opcoes.oplab.com.br/mercado-de-opcoes"
 
@@ -26,15 +26,13 @@ def get_symbol_data(symbol):
 
         # Procurando o símbolo específico
         for stock in stocks:
-            if stock['symbol'] == symbol:
-                return {
-                    'iv_1y_rank': stock.get('iv_1y_rank'),
-                    'iv_1y_percentile': stock.get('iv_1y_percentile'),
-                    'iv_current': stock.get('iv_current')
-                }
-        
-        # Se o símbolo não for encontrado
-        raise Exception(f"Símbolo {symbol} não encontrado")
+            {
+            'iv_1y_rank': stock.get('iv_1y_rank'),
+            'iv_1y_percentile': stock.get('iv_1y_percentile'),
+            'iv_current': stock.get('iv_current')
+            }
+
+        return stocks
 
     except requests.exceptions.RequestException as e:
         # Captura qualquer exceção relacionada à requisição
