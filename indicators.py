@@ -1,3 +1,5 @@
+# Indicadores IV Rank, IV Percentil e Volatilidade Implicita
+
 def get_iv_1y_rank(stocks, symbol):
     for stock in stocks:
         if stock.get('symbol') == symbol:

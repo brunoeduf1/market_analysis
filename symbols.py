@@ -52,10 +52,14 @@ def process_symbol(stocks, symbol):
             data['setup_9_2_buy'].iloc[-1] or data['setup_9_2_sell'].iloc[-1] or
             data['setup_9_3_buy'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or
             data['setup_PC_buy'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
-            print(symbol + ' - ' + check_setups(data) + 
-                  ' - IV Rank: ' + str(get_iv_1y_rank(stocks, symbol)) + 
-                  ' - IV Percentil: ' + str(get_iv_1y_percentile(stocks, symbol)) +
-                  ' - Vol Implicita: ' + str(get_iv_current(stocks, symbol)))
+            
+            return {
+                'symbol': symbol,
+                'setups': check_setups(data),
+                'iv_rank': get_iv_1y_rank(stocks, symbol),
+                'iv_percentile': get_iv_1y_percentile(stocks, symbol),
+                'iv_current': get_iv_current(stocks, symbol)
+            }
             #plot_graph(symbol, data, trend)
 
     except Exception as e:

@@ -22,9 +22,25 @@ else:
 # Analisar se acionou algum setup
 stocks = get_symbol_data()
 symbols = get_symbols_list()
-for symbol in symbols:
-    process_symbol(stocks, symbol)
+results = []
 
+for symbol in symbols:
+    result = process_symbol(stocks, symbol)
+    if result:
+        results.append(result)
+
+# Ordenar os resultados pelo 'iv_percentile'
+results = sorted(results, key=lambda x: x['iv_percentile'])
+
+# Imprimir os resultados ordenados
+for result in results:
+    print(
+        f"{result['symbol']} - "
+        f"{result['setups']} - "
+        f"IV Percentil: {result['iv_percentile']} - "
+        f"IV Rank: {result['iv_rank']} - "
+        f"Vol Implicita: {result['iv_current']}"
+    )
 # Plotar gráfico de um único ativo
 symbol = 'BOVA11'
 data = get_candles(symbol)
