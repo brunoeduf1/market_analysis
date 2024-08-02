@@ -48,14 +48,29 @@ def process_symbol(stocks, symbol):
         trend = analyze_trend(data)
         data = apply_setups(data)
 
-        if (data['setup_9_1_buy'].iloc[-1] or data['setup_9_1_sell'].iloc[-1] or
-            data['setup_9_2_buy'].iloc[-1] or data['setup_9_2_sell'].iloc[-1] or
-            data['setup_9_3_buy'].iloc[-1] or data['setup_9_3_sell'].iloc[-1] or
-            data['setup_PC_buy'].iloc[-1] or data['setup_PC_sell'].iloc[-1]):
-            
+        setups_ativos = []
+
+        if data['setup_9_1_buy'].iloc[-1]:
+            setups_ativos.append('9.1 de compra')
+        if data['setup_9_1_sell'].iloc[-1]:
+            setups_ativos.append('9.1 de venda')
+        if data['setup_9_2_buy'].iloc[-1]:
+            setups_ativos.append('9.2 de compra')
+        if data['setup_9_2_sell'].iloc[-1]:
+            setups_ativos.append('9.2 de venda')
+        if data['setup_9_3_buy'].iloc[-1]:
+            setups_ativos.append('9.3 de compra')
+        if data['setup_9_3_sell'].iloc[-1]:
+            setups_ativos.append('9.3 de venda')
+        if data['setup_PC_buy'].iloc[-1]:
+            setups_ativos.append('PC de compra')
+        if data['setup_PC_sell'].iloc[-1]:
+            setups_ativos.append('PC de venda')
+
+        if setups_ativos:
             return {
                 'symbol': symbol,
-                'setups': check_setups(data),
+                'setups': setups_ativos,
                 'iv_rank': get_iv_1y_rank(stocks, symbol),
                 'iv_percentile': get_iv_1y_percentile(stocks, symbol),
                 'iv_current': get_iv_current(stocks, symbol)
