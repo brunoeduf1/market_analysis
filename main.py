@@ -3,7 +3,9 @@ from symbols import get_candles, get_symbols_list, process_symbol
 from graph import analyze_trend, plot_graph
 from setups import apply_setups
 from services import get_symbol_data
-from predictor import get_historical_data, prepare_data, train_model, evaluate_model, predict_next_candle, build_model 
+from predictor import run_machine_learning
+from options import get_options_list
+from datetime import datetime
 
 def initialize():
     # Inicializar o MetaTrader 5
@@ -53,29 +55,12 @@ def print_analisys_result():
             f"IV Rank: {result['iv_rank']} - "
             f"Vol Implicita: {result['iv_current']}"
         )
-def run_machine_learning(symbol):
-    timeframe = mt5.TIMEFRAME_D1
-    num_candles = 1000
-
-    data = get_historical_data(symbol, timeframe, num_candles)
-    X_train, X_test, y_train, y_test, scaler_X, scaler_y = prepare_data(data)
-    model = build_model(X_train.shape[1])
-    model = train_model(model, X_train, y_train)
-    evaluate_model(model, X_test, y_test)
-
-    next_candle_prediction = predict_next_candle(model, X_train, scaler_X, scaler_y)
-    print(f"Previsão do próximo candle:")
-    print(f"Abertura: {next_candle_prediction[0]}")
-    print(f"Máxima: {next_candle_prediction[1]}")
-    print(f"Mínima: {next_candle_prediction[2]}")
-    print(f"Fechamento: {next_candle_prediction[3]}")
-    print(f"Volume: {next_candle_prediction[4]}")
 
 initialize()
 
+#get_options_list('PETR4')
 #plot_symbol_graph('BBSE3')
-#print_analisys_result()
-run_machine_learning('GGBR4')
-
+print_analisys_result()
+#run_machine_learning('AMER3')
 
 mt5.shutdown()

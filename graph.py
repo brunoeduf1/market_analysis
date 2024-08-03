@@ -111,3 +111,4 @@ def plot_graph(symbol, data, trend_result):
     ax_text.text(0, 0.7, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
 
     plt.show()
+    
