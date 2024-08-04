@@ -4,7 +4,7 @@ from graph import analyze_trend, plot_graph
 from setups import apply_setups
 from services import get_symbol_data
 from predictor import run_machine_learning
-from options import get_options_list
+from options import get_options_list, get_options_info, get_option_orders
 from datetime import datetime
 
 def initialize():
@@ -60,7 +60,10 @@ initialize()
 
 #get_options_list('PETR4')
 #plot_symbol_graph('BBSE3')
-print_analisys_result()
-#run_machine_learning('AMER3')
+#print_analisys_result()
+run_machine_learning('HAPV3')
+#print(get_candles('PETR4'))
+#get_options_info('PETRH393')
+#get_option_orders('PETRH393')
 
 mt5.shutdown()

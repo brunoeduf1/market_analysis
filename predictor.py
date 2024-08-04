@@ -1,13 +1,12 @@
-# predictor.py
-
 import MetaTrader5 as mt5
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import tensorflow as tf
 from tensorflow import keras
 from keras.api.models import Sequential
 from keras.api.layers import Dense
+import mplfinance as mpf
 
 def get_historical_data(symbol, timeframe, num_candles):
     rates = mt5.copy_rates_from_pos(symbol, timeframe, 0, num_candles)
@@ -22,7 +21,6 @@ def prepare_data(data):
     data['target_low'] = data['low'].shift(-1)
     data['target_close'] = data['close'].shift(-1)
     data['target_volume'] = data['real_volume'].shift(-1)
-
     features = ['open', 'high', 'low', 'close', 'real_volume', 'spread', 'real_volume']
     X = data[features]
     y = data[['target_open', 'target_high', 'target_low', 'target_close', 'target_volume']]
@@ -57,31 +55,51 @@ def build_model(input_shape):
 def train_model(model, X_train, y_train):
     model.fit(X_train, y_train, epochs=50, batch_size=32, verbose=1)
     return model
-
+    
 def evaluate_model(model, X_test, y_test):
     loss = model.evaluate(X_test, y_test, verbose=0)
     print(f"Loss: {loss}")
 
-def predict_next_candle(model, X, scaler_X, scaler_y):
+def predict_next_candles(model, X, scaler_X, scaler_y, num_candles=7):
+    predictions = []
     last_candle = X[-1].reshape(1, -1)
-    next_candle_scaled = model.predict(last_candle)
-    next_candle = scaler_y.inverse_transform(next_candle_scaled)
-    return next_candle.flatten()
+    for _ in range(num_candles):
+        next_candle_scaled = model.predict(last_candle)
+        next_candle = scaler_y.inverse_transform(next_candle_scaled)
+        predictions.append(next_candle.flatten())
+        
+        # Atualizar last_candle com a previsão atual para a próxima iteração
+        last_candle = np.array([[
+            next_candle[0, 0], next_candle[0, 1], next_candle[0, 2], next_candle[0, 3], next_candle[0, 4], 0, next_candle[0, 4]
+        ]])
+        last_candle = scaler_X.transform(last_candle)
+
+    return predictions
+
+def plot_candles(data, predictions, symbol):
+    # Concatenar dados históricos com previsões
+    future_dates = pd.date_range(start=data.index[-1], periods=len(predictions) + 1, freq='D')[1:]
+    future_data = pd.DataFrame(predictions, columns=['open', 'high', 'low', 'close', 'real_volume'], index=future_dates)
+    combined_data = pd.concat([data, future_data])
+    # Preparar os dados para o mplfinance
+    combined_data = combined_data[['open', 'high', 'low', 'close', 'real_volume']]
+    combined_data.columns = ['Open', 'High', 'Low', 'Close', 'Volume']
+
+    # Plotar o gráfico de candles
+    mpf.plot(combined_data, type='candle', volume=True, style='charles', title=symbol, ylabel='Preço', ylabel_lower='Volume')
 
 def run_machine_learning(symbol):
     timeframe = mt5.TIMEFRAME_D1
     num_candles = 104
-
     data = get_historical_data(symbol, timeframe, num_candles)
     X_train, X_test, y_train, y_test, scaler_X, scaler_y = prepare_data(data)
     model = build_model(X_train.shape[1])
     model = train_model(model, X_train, y_train)
     evaluate_model(model, X_test, y_test)
 
-    next_candle_prediction = predict_next_candle(model, X_train, scaler_X, scaler_y)
-    print(f"Previsão do próximo candle:")
-    print(f"Abertura: {next_candle_prediction[0]}")
-    print(f"Máxima: {next_candle_prediction[1]}")
-    print(f"Mínima: {next_candle_prediction[2]}")
-    print(f"Fechamento: {next_candle_prediction[3]}")
-    print(f"Volume: {next_candle_prediction[4]}")
+    next_candle_predictions = predict_next_candles(model, X_train, scaler_X, scaler_y, num_candles=7)
+    print("Previsões dos próximos 7 candles:")
+    for i, pred in enumerate(next_candle_predictions):
+        print(f"Candle {i+1}: Abertura: {pred[0]}, Máxima: {pred[1]}, Mínima: {pred[2]}, Fechamento: {pred[3]}, Volume: {pred[4]}")
+
+    plot_candles(data, next_candle_predictions, symbol)
