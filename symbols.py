@@ -50,6 +50,9 @@ def process_symbol(stocks, symbol):
 
         setups_ativos = []
 
+        if symbol == 'VIVT3':
+            teste = 'VIVT3'
+
         if data['setup_9_1_buy'].iloc[-1]:
             setups_ativos.append('9.1 de compra')
         if data['setup_9_1_sell'].iloc[-1]:

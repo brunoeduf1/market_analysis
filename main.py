@@ -59,9 +59,9 @@ def print_analisys_result():
 initialize()
 
 #get_options_list('PETR4')
-#plot_symbol_graph('BBSE3')
-#print_analisys_result()
-run_machine_learning('HAPV3')
+#plot_symbol_graph('TIMS3')
+print_analisys_result()
+#run_machine_learning('VALE3')
 #print(get_candles('PETR4'))
 #get_options_info('PETRH393')
 #get_option_orders('PETRH393')
