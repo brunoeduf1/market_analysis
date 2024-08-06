@@ -40,6 +40,8 @@ def plot_graph(symbol, data, trend_result):
     # Obter a data de três meses atrás
     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(months=3)
 
+    data.set_index('time', inplace=True)
+
     # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses
     data_last_3_months = data.loc[tree_months_ago:]
 

@@ -65,12 +65,12 @@ def print_symbol_analisys(symbol):
 initialize()
 
 #get_options_list('PETR4')
-#plot_symbol_graph('BOVA11')
+#plot_symbol_graph('RENT3')
 #print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('PETR4'))
 #get_options_info('PETRH393')
 #get_option_orders('PETRH393')
-print_symbol_analisys('VALE3')
+print_symbol_analisys('BRFS3')
 
 mt5.shutdown()

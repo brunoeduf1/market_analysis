@@ -3,40 +3,47 @@
 def setup_9_1(data):
     data['EMA9_diff'] = data['EMA9'].diff()
     
-    last_candle_index = len(data) - 1
+    data = data.reset_index(drop=True)
     
     data['setup_9_1_buy'] = False
     data['setup_9_1_sell'] = False
     
     # Setup 9.1 de Compra
-    if (data['EMA9_diff'].iloc[last_candle_index - 1] < 0 and data['EMA9_diff'].iloc[last_candle_index] > 0 and
-        data['close'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index]):
-        data['setup_9_1_buy'] = True
+    data['setup_9_1_buy'] = (
+        (data['EMA9_diff'].shift(1) < 0) & 
+        (data['EMA9_diff'] > 0) & 
+        (data['close'] >= data['open'])
+    )
     
     # Setup 9.1 de Venda
-    if (data['EMA9_diff'].iloc[last_candle_index - 1] > 0 and data['EMA9_diff'].iloc[last_candle_index] < 0 and
-        data['close'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index]):
-        data['setup_9_1_sell'] = True
+    data['setup_9_1_sell'] = (
+        (data['EMA9_diff'].shift(1) > 0) & 
+        (data['EMA9_diff'] < 0) & 
+        (data['close'] <= data['open'])
+    )
     
     return data
 
 def setup_9_2(data):
-    last_candle_index = len(data) - 1
 
+    data = data.reset_index(drop=True)
+    
     data['setup_9_2_buy'] = False
     data['setup_9_2_sell'] = False
     
     # Setup 9.2 de Compra
-    if (data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1] and
-        data['close'].iloc[last_candle_index - 1] < data['open'].iloc[last_candle_index - 1] and
-        data['close'].iloc[last_candle_index] < data['low'].iloc[last_candle_index - 1]):
-        data['setup_9_2_buy'] = True
+    data['setup_9_2_buy'] = (
+        (data['EMA9'] > data['EMA9'].shift(1)) & 
+        (data['close'].shift(1) < data['open'].shift(1)) & 
+        (data['close'] < data['low'].shift(1))
+    )
     
     # Setup 9.2 de Venda
-    if (data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1] and 
-        data['close'].iloc[last_candle_index - 1] > data['open'].iloc[last_candle_index - 1] and
-        data['close'].iloc[last_candle_index] > data['high'].iloc[last_candle_index - 1]):
-        data['setup_9_2_sell'] = True
+    data['setup_9_2_sell'] = (
+        (data['EMA9'] < data['EMA9'].shift(1)) & 
+        (data['close'].shift(1) > data['open'].shift(1)) & 
+        (data['close'] > data['high'].shift(1))
+    )
     
     return data
 
@@ -44,76 +51,95 @@ def setup_9_3(data):
     
     data['EMA9_diff'] = data['EMA9'].diff()
     
-    last_candle_index = len(data) - 1
+    # Redefine o índice para garantir que estamos usando índices numéricos
+    data = data.reset_index(drop=True)
     
     data['setup_9_3_buy'] = False
     data['setup_9_3_sell'] = False
     
     # Setup 9.3 de Compra
-    if data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1]:
-        if (data['close'].iloc[last_candle_index - 2] > data['open'].iloc[last_candle_index - 2]): # Candle de alta [-2]
-            if (data['close'].iloc[last_candle_index - 1] < data['open'].iloc[last_candle_index - 1]): # Candle de baixa [-1]
-                if (data['open'].iloc[last_candle_index - 1] <= data['close'].iloc[last_candle_index - 2] and
-                    data['close'].iloc[last_candle_index - 1] >= data['open'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] < data['open'].iloc[last_candle_index]): # Candle de baixa [0]
-                        if(data['open'].iloc[last_candle_index] <= data['close'].iloc[last_candle_index - 2] and 
-                        data['close'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-                    else: # Candle de alta [0]
-                        if(data['close'].iloc[last_candle_index] <= data['close'].iloc[last_candle_index - 2] and 
-                        data['open'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-            else: # Candle de alta [-1]
-                if (data['close'].iloc[last_candle_index - 1] <= data['close'].iloc[last_candle_index - 2] and
-                    data['open'].iloc[last_candle_index - 1] >= data['open'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] > data['open'].iloc[last_candle_index]): # Candle de alta [0]
-                        if(data['close'].iloc[last_candle_index] <= data['close'].iloc[last_candle_index - 2] and 
-                        data['open'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-                    else: # Candle de baixa [0]
-                        if(data['open'].iloc[last_candle_index] <= data['close'].iloc[last_candle_index - 2] and 
-                        data['close'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
+    data['setup_9_3_buy'] = (
+        (data['EMA9'] > data['EMA9'].shift(1)) &
+        (
+            ((data['close'].shift(2) > data['open'].shift(2)) &  # Candle de alta [-2]
+             (data['close'].shift(1) < data['open'].shift(1)) &  # Candle de baixa [-1]
+             (data['open'].shift(1) <= data['close'].shift(2)) &
+             (data['close'].shift(1) >= data['open'].shift(2)) &
+             (
+                 ((data['close'] < data['open']) &  # Candle de baixa [0]
+                  (data['open'] <= data['close'].shift(2)) &
+                  (data['close'] >= data['open'].shift(2))) |
+                 ((data['close'] > data['open']) &  # Candle de alta [0]
+                  (data['close'] <= data['close'].shift(2)) &
+                  (data['open'] >= data['open'].shift(2)))
+             )) |
+            ((data['close'].shift(2) > data['open'].shift(2)) &  # Candle de alta [-2]
+             (data['close'].shift(1) > data['open'].shift(1)) &  # Candle de alta [-1]
+             (data['close'].shift(1) <= data['close'].shift(2)) &
+             (data['open'].shift(1) >= data['open'].shift(2)) &
+             (
+                 ((data['close'] > data['open']) &  # Candle de alta [0]
+                  (data['close'] <= data['close'].shift(2)) &
+                  (data['open'] >= data['open'].shift(2))) |
+                 ((data['close'] < data['open']) &  # Candle de baixa [0]
+                  (data['open'] <= data['close'].shift(2)) &
+                  (data['close'] >= data['open'].shift(2)))
+             ))
+        )
+    )
     
     # Setup 9.3 de Venda
-    if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1]:
-        if (data['close'].iloc[last_candle_index - 2] < data['open'].iloc[last_candle_index - 2]): # Candle de baixa [-2]
-            if (data['close'].iloc[last_candle_index - 1] < data['open'].iloc[last_candle_index - 1]): # Candle de baixa [-1]
-                if (data['open'].iloc[last_candle_index - 1] <= data['open'].iloc[last_candle_index - 2] and
-                    data['close'].iloc[last_candle_index - 1] >= data['close'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] < data['open'].iloc[last_candle_index]): # Candle de baixa [0]
-                        if(data['open'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index - 2] and 
-                        data['close'].iloc[last_candle_index] >= data['close'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-                    else: # Candle de alta [0]
-                        if(data['close'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index - 2] and 
-                        data['open'].iloc[last_candle_index] >= data['close'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-            else: # Candle de alta [-1]
-                if (data['close'].iloc[last_candle_index - 1] <= data['open'].iloc[last_candle_index - 2] and
-                    data['open'].iloc[last_candle_index - 1] >= data['close'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] > data['open'].iloc[last_candle_index]): # Candle de alta [0]
-                        if(data['close'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index - 2] and 
-                        data['open'].iloc[last_candle_index] >= data['close'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
-                    else: # Candle de baixa [0]
-                        if(data['open'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index - 2] and 
-                        data['close'].iloc[last_candle_index] >= data['close'].iloc[last_candle_index - 2]):
-                            data['setup_9_3_buy'] = True
+    data['setup_9_3_sell'] = (
+        (data['EMA9'] < data['EMA9'].shift(1)) &
+        (
+            ((data['close'].shift(2) < data['open'].shift(2)) &  # Candle de baixa [-2]
+             (data['close'].shift(1) < data['open'].shift(1)) &  # Candle de baixa [-1]
+             (data['open'].shift(1) <= data['open'].shift(2)) &
+             (data['close'].shift(1) >= data['close'].shift(2)) &
+             (
+                 ((data['close'] < data['open']) &  # Candle de baixa [0]
+                  (data['open'] <= data['open'].shift(2)) &
+                  (data['close'] >= data['close'].shift(2))) |
+                 ((data['close'] > data['open']) &  # Candle de alta [0]
+                  (data['close'] <= data['open'].shift(2)) &
+                  (data['open'] >= data['close'].shift(2)))
+             )) |
+            ((data['close'].shift(2) < data['open'].shift(2)) &  # Candle de baixa [-2]
+             (data['close'].shift(1) > data['open'].shift(1)) &  # Candle de alta [-1]
+             (data['close'].shift(1) <= data['open'].shift(2)) &
+             (data['open'].shift(1) >= data['close'].shift(2)) &
+             (
+                 ((data['close'] > data['open']) &  # Candle de alta [0]
+                  (data['close'] <= data['open'].shift(2)) &
+                  (data['open'] >= data['close'].shift(2))) |
+                 ((data['close'] < data['open']) &  # Candle de baixa [0]
+                  (data['open'] <= data['open'].shift(2)) &
+                  (data['close'] >= data['close'].shift(2)))
+             ))
+        )
+    )
     
     return data
 
 def setup_PC(data):
-    last_candle_index = len(data) - 1
-
+    data = data.reset_index(drop=True)
+    
     data['setup_PC_buy'] = False
     data['setup_PC_sell'] = False
 
-    if data['EMA9'].iloc[last_candle_index] > data['EMA9'].iloc[last_candle_index - 1]:
-        data['setup_PC_buy'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
+    # Setup PC de Compra
+    data['setup_PC_buy'] = (
+        (data['EMA9'] > data['EMA9'].shift(1)) &
+        (data['low'] <= data['SMA21']) &
+        (data['high'] >= data['SMA21'])
+    )
     
-    if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1]:
-        data['setup_PC_sell'] = (data['low'] <= data['SMA21']) & (data['high'] >= data['SMA21'])
+    # Setup PC de Venda
+    data['setup_PC_sell'] = (
+        (data['EMA9'] < data['EMA9'].shift(1)) &
+        (data['low'] <= data['SMA21']) &
+        (data['high'] >= data['SMA21'])
+    )
 
     return data
 
