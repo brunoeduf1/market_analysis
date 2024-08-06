@@ -55,15 +55,22 @@ def print_analisys_result():
             f"IV Rank: {result['iv_rank']} - "
             f"Vol Implicita: {result['iv_current']}"
         )
+def print_symbol_analisys(symbol):
+    data = get_candles(symbol)
+    trend = analyze_trend(data)
+    data = apply_setups(data)
+    print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
+
 
 initialize()
 
 #get_options_list('PETR4')
 #plot_symbol_graph('BOVA11')
-print_analisys_result()
+#print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('PETR4'))
 #get_options_info('PETRH393')
 #get_option_orders('PETRH393')
+print_symbol_analisys('VALE3')
 
 mt5.shutdown()
