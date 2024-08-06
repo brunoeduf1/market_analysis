@@ -59,7 +59,7 @@ def print_analisys_result():
 initialize()
 
 #get_options_list('PETR4')
-#plot_symbol_graph('TIMS3')
+#plot_symbol_graph('BOVA11')
 print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('PETR4'))

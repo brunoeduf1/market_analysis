@@ -66,7 +66,7 @@ def setup_9_3(data):
             else: # Candle de alta [-1]
                 if (data['close'].iloc[last_candle_index - 1] <= data['close'].iloc[last_candle_index - 2] and
                     data['open'].iloc[last_candle_index - 1] >= data['open'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] < data['open'].iloc[last_candle_index]): # Candle de alta [0]
+                    if (data['close'].iloc[last_candle_index] > data['open'].iloc[last_candle_index]): # Candle de alta [0]
                         if(data['close'].iloc[last_candle_index] <= data['close'].iloc[last_candle_index - 2] and 
                         data['open'].iloc[last_candle_index] >= data['open'].iloc[last_candle_index - 2]):
                             data['setup_9_3_buy'] = True
@@ -77,7 +77,7 @@ def setup_9_3(data):
     
     # Setup 9.3 de Venda
     if data['EMA9'].iloc[last_candle_index] < data['EMA9'].iloc[last_candle_index - 1]:
-        if (data['close'].iloc[last_candle_index - 2] > data['open'].iloc[last_candle_index - 2]): # Candle de alta [-2]
+        if (data['close'].iloc[last_candle_index - 2] < data['open'].iloc[last_candle_index - 2]): # Candle de baixa [-2]
             if (data['close'].iloc[last_candle_index - 1] < data['open'].iloc[last_candle_index - 1]): # Candle de baixa [-1]
                 if (data['open'].iloc[last_candle_index - 1] <= data['open'].iloc[last_candle_index - 2] and
                     data['close'].iloc[last_candle_index - 1] >= data['close'].iloc[last_candle_index - 2]): 
@@ -92,7 +92,7 @@ def setup_9_3(data):
             else: # Candle de alta [-1]
                 if (data['close'].iloc[last_candle_index - 1] <= data['open'].iloc[last_candle_index - 2] and
                     data['open'].iloc[last_candle_index - 1] >= data['close'].iloc[last_candle_index - 2]): 
-                    if (data['close'].iloc[last_candle_index] < data['open'].iloc[last_candle_index]): # Candle de alta [0]
+                    if (data['close'].iloc[last_candle_index] > data['open'].iloc[last_candle_index]): # Candle de alta [0]
                         if(data['close'].iloc[last_candle_index] <= data['open'].iloc[last_candle_index - 2] and 
                         data['open'].iloc[last_candle_index] >= data['close'].iloc[last_candle_index - 2]):
                             data['setup_9_3_buy'] = True
