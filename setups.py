@@ -1,8 +1,9 @@
 # Setups 9.1, 9.2, 9.3 e PC de Larry Williams
 
 def setup_9_1(data):
+
+    data['time'] = data.index
     data['EMA9_diff'] = data['EMA9'].diff()
-    
     data = data.reset_index(drop=True)
     
     data['setup_9_1_buy'] = False
@@ -22,10 +23,12 @@ def setup_9_1(data):
         (data['close'] <= data['open'])
     )
     
+    data = data.set_index('time')
+
     return data
 
 def setup_9_2(data):
-
+    data['time'] = data.index
     data = data.reset_index(drop=True)
     
     data['setup_9_2_buy'] = False
@@ -44,11 +47,13 @@ def setup_9_2(data):
         (data['close'].shift(1) > data['open'].shift(1)) & 
         (data['close'] > data['high'].shift(1))
     )
+
+    data = data.set_index('time')
     
     return data
 
 def setup_9_3(data):
-    
+    data['time'] = data.index
     data['EMA9_diff'] = data['EMA9'].diff()
     
     # Redefine o índice para garantir que estamos usando índices numéricos
@@ -118,10 +123,13 @@ def setup_9_3(data):
              ))
         )
     )
+
+    data = data.set_index('time')
     
     return data
 
 def setup_PC(data):
+    data['time'] = data.index
     data = data.reset_index(drop=True)
     
     data['setup_PC_buy'] = False
@@ -140,6 +148,8 @@ def setup_PC(data):
         (data['low'] <= data['SMA21']) &
         (data['high'] >= data['SMA21'])
     )
+
+    data = data.set_index('time')
 
     return data
 
