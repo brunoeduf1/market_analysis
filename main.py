@@ -41,7 +41,7 @@ def print_analisys_result():
             results.append(result)
 
     # Ordenar os resultados pelo 'iv_percentile'
-    results = sorted(results, key=lambda x: x['iv_percentile'])
+    results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
 
     # Imprimir os resultados ordenados
     for result in results:
@@ -65,12 +65,12 @@ def print_symbol_analisys(symbol):
 initialize()
 
 #get_options_list('PETR4')
-#plot_symbol_graph('RENT3')
+#plot_symbol_graph('VIVT3')
 print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('PETR4'))
-#get_options_info('PETRH393')
+#get_options_info('BOVAU119')
 #get_option_orders('PETRH393')
-#print_symbol_analisys('BRFS3')
+#print_symbol_analisys('VIVT3')
 
 mt5.shutdown()
