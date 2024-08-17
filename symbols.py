@@ -7,7 +7,7 @@ from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 symbols_list = [
     'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
-    'B3SA3', 'BAPC11', 'BBAS3', 'BBDC4', 'BBSE3',
+    'B3SA3', 'BBAS3', 'BBDC4', 'BBSE3', 'BPAC11','BRAP4',
     'BHIA3', 'BOVA11', 'BRAP4', 'BEEF3', 'BRFS3',
     'BRKM5', 'CIEL3', 'CMIG4', 'CPLE6', 'CSAN3',
     'CSNA3', 'CVCB3', 'CYRE3', 'DXCO3', 'ECOR3',
@@ -18,9 +18,9 @@ symbols_list = [
     'MGLU3', 'MRFG3', 'MRVE3', 'MULT3', 'NTCO3',
     'PCAR3', 'PETR4', 'PETZ3', 'PRIO3', 'QUAL3',
     'RADL3', 'RAIL3', 'RAIZ4', 'RDOR3', 'RENT3',
-    'RRRP3', 'SANB11', 'SBSP3', 'SLCE3', 'SOMA3',
+    'RRRP3', 'SANB11', 'SBSP3', 'SLCE3',
     'SUZB3', 'TAEE11', 'TIMS3', 'UGPA3', 'USIM5',
-    'VALE3', 'VBBR3', 'VIVT3', 'WEGE3'
+    'VALE3', 'VBBR3', 'VIVT3', 'WEGE3', 'YDUQ3',
 ]
 
 def get_candles(symbol):

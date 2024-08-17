@@ -55,6 +55,7 @@ def print_analisys_result():
             f"IV Rank: {result['iv_rank']} - "
             f"Vol Implicita: {result['iv_current']}"
         )
+
 def print_symbol_analisys(symbol):
     data = get_candles(symbol)
     trend = analyze_trend(data)
