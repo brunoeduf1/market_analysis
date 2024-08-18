@@ -37,6 +37,7 @@ def analyze_trend(data):
     return trend_result
 
 def plot_graph(symbol, data, trend_result):
+    
     # Obter a data de três meses atrás
     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(months=3)
 
@@ -111,4 +112,6 @@ def plot_graph(symbol, data, trend_result):
     ax_text.text(0, 0.7, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
 
     plt.show()
+
+
     

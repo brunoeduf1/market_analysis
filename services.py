@@ -23,6 +23,7 @@ def get_symbol_data():
 
         # Extraindo os dados das ações
         stocks = json_data['props']['pageProps']['stocks']
+        time = json_data['props']['pageProps']['time']
 
         # Procurando o símbolo específico
         for stock in stocks:
@@ -32,7 +33,7 @@ def get_symbol_data():
             'iv_current': stock.get('iv_current')
             }
 
-        return stocks
+        return stocks, time
 
     except requests.exceptions.RequestException as e:
         # Captura qualquer exceção relacionada à requisição

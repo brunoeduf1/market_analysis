@@ -2,12 +2,15 @@ import MetaTrader5 as mt5
 import pandas as pd
 from datetime import datetime, timedelta
 from graph import analyze_trend, plot_graph
-from setups import apply_setups, check_setups
+from setups import apply_setups
 from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
+from services import get_symbol_data
+import pytz
+from datetime import datetime
 
 symbols_list = [
     'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
-    'B3SA3', 'BBAS3', 'BBDC4', 'BBSE3', 'BPAC11','BRAP4',
+    'B3SA3', 'BBAS3', 'BBDC4', 'BBSE3', 'BPAC11',
     'BHIA3', 'BOVA11', 'BRAP4', 'BEEF3', 'BRFS3',
     'BRKM5', 'CIEL3', 'CMIG4', 'CPLE6', 'CSAN3',
     'CSNA3', 'CVCB3', 'CYRE3', 'DXCO3', 'ECOR3',
@@ -50,9 +53,6 @@ def process_symbol(stocks, symbol):
 
         setups_ativos = []
 
-        if symbol == 'VIVT3':
-            teste = 'VIVT3'
-
         if data['setup_9_1_buy'].iloc[-1]:
             setups_ativos.append('9.1 de compra')
         if data['setup_9_1_sell'].iloc[-1]:
@@ -82,3 +82,54 @@ def process_symbol(stocks, symbol):
 
     except Exception as e:
         print(f"Erro ao processar {symbol}: {e}")
+
+def print_symbol_analisys(symbol):
+    data = get_candles(symbol)
+    trend = analyze_trend(data)
+    data = apply_setups(data)
+    print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
+
+def print_analisys_result():
+    # Analisar se acionou algum setup
+    stocks, time = get_symbol_data()
+    symbols = get_symbols_list()
+    results = []
+
+    for symbol in symbols:
+        result = process_symbol(stocks, symbol)
+        if result:
+            results.append(result)
+
+    # Ordenar os resultados pelo 'iv_percentile'
+    results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
+
+    print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
+
+    # Imprimir os resultados ordenados
+    for result in results:
+        # Concatena os setups ativos em uma string
+        setups_str = ', '.join(result['setups'])
+        
+        print(
+            f"{result['symbol']} - "
+            f"{setups_str} - "
+            f"IV Percentil: {result['iv_percentile']} - "
+            f"IV Rank: {result['iv_rank']} - "
+            f"Vol Implicita: {result['iv_current']}"
+        )
+
+def plot_symbol_graph(symbol):
+    data = get_candles(symbol)
+    trend = analyze_trend(data)
+    data = apply_setups(data)
+    plot_graph(symbol, data, trend)
+
+def convert_time_zone(time):
+
+    utc = pytz.utc
+    brasilia_time = pytz.timezone('America/Sao_Paulo')
+    utc_time = datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ')
+    utc_time = utc.localize(utc_time)
+    brasilia_time = utc_time.astimezone(brasilia_time)
+
+    return brasilia_time
