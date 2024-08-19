@@ -6,7 +6,6 @@ from setups import apply_setups
 from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 from services import get_symbol_data
 import pytz
-from datetime import datetime
 
 symbols_list = [
     'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
@@ -26,17 +25,15 @@ symbols_list = [
     'VALE3', 'VBBR3', 'VIVT3', 'WEGE3', 'YDUQ3',
 ]
 
-def get_candles(symbol):
+def get_candles(symbol, time_frame):
 
-    # Obtém os dados das candles
     candles = mt5.copy_rates_range(
         symbol,
         mt5.TIMEFRAME_D1,
-        datetime.today() - timedelta(days=548), # Um ano e meio atrás
+        datetime.today() - timedelta(days=time_frame), # Um ano e meio atrás
         datetime.today(),
     )
 
-    # Converte os dados para um DataFrame do Pandas
     df_candles = pd.DataFrame(candles)
     df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
 
@@ -47,7 +44,7 @@ def get_symbols_list():
 
 def process_symbol(stocks, symbol):
     try:
-        data = get_candles(symbol)
+        data = get_candles(symbol, 548)
         trend = analyze_trend(data)
         data = apply_setups(data)
 
@@ -84,7 +81,7 @@ def process_symbol(stocks, symbol):
         print(f"Erro ao processar {symbol}: {e}")
 
 def print_symbol_analisys(symbol):
-    data = get_candles(symbol)
+    data = get_candles(symbol, 548)
     trend = analyze_trend(data)
     data = apply_setups(data)
     print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
@@ -119,7 +116,7 @@ def print_analisys_result():
         )
 
 def plot_symbol_graph(symbol):
-    data = get_candles(symbol)
+    data = get_candles(symbol, 548)
     trend = analyze_trend(data)
     data = apply_setups(data)
     plot_graph(symbol, data, trend)

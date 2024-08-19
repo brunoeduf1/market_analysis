@@ -1,3 +1,8 @@
+import numpy as np
+from datetime import datetime, timedelta
+import MetaTrader5 as mt5
+import pandas as pd
+
 # Indicadores IV Rank, IV Percentil e Volatilidade Implicita
 
 def get_iv_1y_rank(stocks, symbol):

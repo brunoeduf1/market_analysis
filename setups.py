@@ -9,13 +9,13 @@ def setup_9_1(data):
     data['setup_9_1_buy'] = False
     data['setup_9_1_sell'] = False
     
-    # Setup 9.1 de Compra
+    # Setup 9.1 Buy
     data['setup_9_1_buy'] = (
         (data['EMA9_diff'].shift(1) < 0) & 
         (data['EMA9_diff'] > 0)
     )
     
-    # Setup 9.1 de Venda
+    # Setup 9.1 Sell
     data['setup_9_1_sell'] = (
         (data['EMA9_diff'].shift(1) > 0) & 
         (data['EMA9_diff'] < 0)
@@ -32,14 +32,14 @@ def setup_9_2(data):
     data['setup_9_2_buy'] = False
     data['setup_9_2_sell'] = False
     
-    # Setup 9.2 de Compra
+    # Setup 9.2 Buy
     data['setup_9_2_buy'] = (
         (data['EMA9'] > data['EMA9'].shift(1)) & 
         (data['close'].shift(1) < data['open'].shift(1)) & 
         (data['close'] < data['low'].shift(1))
     )
     
-    # Setup 9.2 de Venda
+    # Setup 9.2 de Sell
     data['setup_9_2_sell'] = (
         (data['EMA9'] < data['EMA9'].shift(1)) & 
         (data['close'].shift(1) > data['open'].shift(1)) & 
@@ -54,13 +54,13 @@ def setup_9_3(data):
     data['time'] = data.index
     data['EMA9_diff'] = data['EMA9'].diff()
     
-    # Redefine o índice para garantir que estamos usando índices numéricos
+    # Change the index to numeric
     data = data.reset_index(drop=True)
     
     data['setup_9_3_buy'] = False
     data['setup_9_3_sell'] = False
     
-    # Setup 9.3 de Compra
+    # Setup 9.3 de Buy
     data['setup_9_3_buy'] = (
         (data['EMA9'] > data['EMA9'].shift(1)) &
         (
@@ -91,7 +91,7 @@ def setup_9_3(data):
         )
     )
     
-    # Setup 9.3 de Venda
+    # Setup 9.3 de Sell
     data['setup_9_3_sell'] = (
         (data['EMA9'] < data['EMA9'].shift(1)) &
         (
@@ -133,14 +133,14 @@ def setup_PC(data):
     data['setup_PC_buy'] = False
     data['setup_PC_sell'] = False
 
-    # Setup PC de Compra
+    # Setup PC de Buy
     data['setup_PC_buy'] = (
         (data['SMA21'] > data['SMA21'].shift(1)) &
         (data['low'] <= data['SMA21']) &
         (data['high'] >= data['SMA21'])
     )
     
-    # Setup PC de Venda
+    # Setup PC de Sell
     data['setup_PC_sell'] = (
         (data['SMA21'] < data['SMA21'].shift(1)) &
         (data['low'] <= data['SMA21']) &
