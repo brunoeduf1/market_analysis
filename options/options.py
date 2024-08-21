@@ -15,10 +15,11 @@ def get_options_info(symbol):
 
     symbol_info=mt5.symbol_info(symbol)
     if symbol_info!=None:
-        print(symbol_info)
-        #symbol_info_dict = mt5.symbol_info(symbol)._asdict()
-        #for prop in symbol_info_dict:
-            #print("  {}={}".format(prop, symbol_info_dict[prop]))
+        print(
+            'Strike: ' + str(symbol_info.option_strike) + '\n' +
+            'Bid: ' + str(symbol_info.bid) + '\n' +
+            'Ask: ' + str(symbol_info.ask)
+        )
     
     return {
     "Strike": symbol_info.option_strike,

@@ -1,10 +1,10 @@
 import MetaTrader5 as mt5
 import pandas as pd
 from datetime import datetime, timedelta
-from graph import analyze_trend, plot_graph
-from setups import apply_setups
-from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
-from services import get_symbol_data
+from graphs.graph import analyze_trend, plot_graph
+from stocks.setups import apply_setups
+from stocks.indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
+from services.services import get_symbol_data
 import pytz
 
 symbols_list = [
@@ -87,7 +87,6 @@ def print_symbol_analisys(symbol):
     print(data[['setup_9_1_buy', 'setup_9_1_sell', 'setup_9_2_buy', 'setup_9_2_sell', 'setup_9_3_buy', 'setup_9_3_sell', 'setup_PC_buy', 'setup_PC_sell']])
 
 def print_analisys_result():
-    # Analisar se acionou algum setup
     stocks, time = get_symbol_data()
     symbols = get_symbols_list()
     results = []
@@ -99,14 +98,10 @@ def print_analisys_result():
 
     # Ordenar os resultados pelo 'iv_percentile'
     results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
-
     print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
 
-    # Imprimir os resultados ordenados
     for result in results:
-        # Concatena os setups ativos em uma string
-        setups_str = ', '.join(result['setups'])
-        
+        setups_str = ', '.join(result['setups'])   
         print(
             f"{result['symbol']} - "
             f"{setups_str} - "
@@ -122,7 +117,6 @@ def plot_symbol_graph(symbol):
     plot_graph(symbol, data, trend)
 
 def convert_time_zone(time):
-
     utc = pytz.utc
     brasilia_time = pytz.timezone('America/Sao_Paulo')
     utc_time = datetime.strptime(time, '%Y-%m-%dT%H:%M:%S.%fZ')

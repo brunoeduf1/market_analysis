@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
-from setups import check_setups
-from services import get_symbol_data
-from indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
+from stocks.setups import check_setups
+from services.services import get_symbol_data
+from stocks.indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 def analyze_trend(data):
 
