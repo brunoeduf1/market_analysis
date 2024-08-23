@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from graphs.graph import analyze_trend, plot_graph
 from stocks.setups import apply_setups
-from stocks.indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
+from stocks.get_indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 from services.services import get_symbol_data
 import pytz
 
@@ -25,7 +25,7 @@ symbols_list = [
     'VALE3', 'VBBR3', 'VIVT3', 'WEGE3', 'YDUQ3',
 ]
 
-def get_candles(symbol, time_frame):
+def get_candles(symbol, time_frame = 252):
 
     candles = mt5.copy_rates_range(
         symbol,

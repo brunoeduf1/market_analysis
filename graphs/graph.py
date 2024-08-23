@@ -4,7 +4,7 @@ from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
 from stocks.setups import check_setups
 from services.services import get_symbol_data
-from stocks.indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
+from stocks.get_indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 def analyze_trend(data):
 

@@ -1,6 +1,6 @@
+from datetime import datetime
+import pytz
 import MetaTrader5 as mt5
-
-## Revisar
 
 def get_options_list(symbol):
     
@@ -14,17 +14,12 @@ def get_options_list(symbol):
 def get_options_info(symbol):
 
     symbol_info=mt5.symbol_info(symbol)
-    if symbol_info!=None:
-        print(
-            'Strike: ' + str(symbol_info.option_strike) + '\n' +
-            'Bid: ' + str(symbol_info.bid) + '\n' +
-            'Ask: ' + str(symbol_info.ask)
-        )
     
     return {
-    "Strike": symbol_info.option_strike,
-    "Bid": symbol_info.bid,
-    "Ask": symbol_info.ask
+    "strike": symbol_info.option_strike,
+    "bid": symbol_info.bid,
+    "ask": symbol_info.ask,
+    "expiration_time": symbol_info.expiration_time
     }
 
 
@@ -41,3 +36,14 @@ def identify_option_type(option_code):
         return "put"
     else:
         return "Código inválido"
+
+def get_expiration_time(option):
+
+    expiration_time = get_options_info(option)['expiration_time']
+    utc = pytz.UTC
+    expiration_date = datetime.fromtimestamp(expiration_time, tz=utc)
+    current_date = datetime.now(tz=utc)
+    difference_in_days = (expiration_date - current_date).days
+    difference_in_years = difference_in_days / 365.25
+
+    return difference_in_years

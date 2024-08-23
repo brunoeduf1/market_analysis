@@ -1,4 +1,3 @@
-import numpy as np
 from datetime import datetime, timedelta
 import MetaTrader5 as mt5
 import pandas as pd
@@ -22,3 +21,5 @@ def get_iv_current(stocks, symbol):
         if stock.get('symbol') == symbol:
             return stock.get('iv_current')
     raise Exception(f"Símbolo {symbol} não encontrado")
+
+
