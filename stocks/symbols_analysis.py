@@ -96,19 +96,30 @@ def print_analisys_result():
         if result:
             results.append(result)
 
-    # Ordenar os resultados pelo 'iv_percentile'
-    results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
-    print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
+    file_name = 'robot_analysis.csv'
 
-    for result in results:
-        setups_str = ', '.join(result['setups'])   
-        print(
-            f"{result['symbol']} - "
-            f"{setups_str} - "
-            f"IV Percentil: {result['iv_percentile']} - "
-            f"IV Rank: {result['iv_rank']} - "
-            f"Vol Implicita: {result['iv_current']}"
-        )
+    with open(file_name, mode='w', encoding='utf-8') as file:
+
+        results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
+        print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
+
+        file.write('Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita \n')
+        for result in results:
+
+            setups_str = ', '.join(result['setups'])
+
+            print(
+                f"{result['symbol']} - "
+                f"{setups_str} - "
+                f"IV Percentil: {result['iv_percentile']} - "
+                f"IV Rank: {result['iv_rank']} - "
+                f"Vol Implicita: {result['iv_current']}")  
+
+            file.write(str(result['symbol']) + ' - ' +
+                       str(setups_str) + ' - ' +
+                       str(result['iv_percentile']) + ' - ' +
+                       str(result['iv_rank']) + ' - ' + 
+                       str(result['iv_current']) + '\n')
 
 def plot_symbol_graph(symbol):
     data = get_candles(symbol, 548)
