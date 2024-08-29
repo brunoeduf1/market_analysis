@@ -8,21 +8,23 @@ from services.services import get_symbol_data
 import pytz
 
 symbols_list = [
-    'ABEV3', 'ALPA4', 'AMER3', 'ASAI3', 'AZUL4',
-    'B3SA3', 'BBAS3', 'BBDC4', 'BBSE3', 'BPAC11',
-    'BHIA3', 'BOVA11', 'BRAP4', 'BEEF3', 'BRFS3',
-    'BRKM5', 'CIEL3', 'CMIG4', 'CPLE6', 'CSAN3',
-    'CSNA3', 'CVCB3', 'CYRE3', 'DXCO3', 'ECOR3',
-    'EGIE3', 'ELET3', 'EMBR3', 'ENEV3', 'EQTL3',
-    'EZTC3', 'GGBR4', 'GOLL4', 'GOAU4', 'HAPV3',
+    'ABEV3', 'ALPA4', 'ALOS3', 'ASAI3', 'AZUL4',
+    'AZZA3', 'B3SA3', 'BPAC11', 'BBAS3', 'BBDC4',
+    'BBSE3', 'BEEF3', 'BHIA3', 'BOVA11', 'BRAP4',
+    'BRFS3', 'BRKM5', 'BRSR6', 'CCRO3', 'CMIG4',
+    'CMIN3', 'COGN3', 'CPFE3', 'CPLE6', 'CSAN3',
+    'CSNA3', 'CVCB3', 'CYRE3', 'DXCO3', 'ELET3',
+    'ECOR3', 'EGIE3', 'EMBR3', 'ENEV3', 'EQTL3',
+    'EZTC3', 'GGBR4', 'GOAU4', 'GOLL4', 'HAPV3',
     'HYPE3', 'IGTI11', 'IRBR3', 'ITSA4', 'ITUB4',
     'JBSS3', 'JHSF3', 'KLBN11', 'LREN3', 'LWSA3',
     'MGLU3', 'MRFG3', 'MRVE3', 'MULT3', 'NTCO3',
     'PCAR3', 'PETR4', 'PETZ3', 'PRIO3', 'QUAL3',
-    'RADL3', 'RAIL3', 'RAIZ4', 'RDOR3', 'RENT3',
-    'RRRP3', 'SANB11', 'SBSP3', 'SLCE3',
-    'SUZB3', 'TAEE11', 'TIMS3', 'UGPA3', 'USIM5',
-    'VALE3', 'VBBR3', 'VIVT3', 'WEGE3', 'YDUQ3',
+    'RAIL3', 'RAIZ4', 'RADL3', 'RDOR3', 'RENT3',
+    'RRRP3', 'SANB11', 'SBSP3', 'SLCE3', 'SMAL11',
+    'SMTO3', 'SUZB3', 'TAEE11', 'TIMS3', 'TOTS3',
+    'UGPA3', 'USIM5', 'VBBR3', 'VALE3', 'VIVA3',
+    'VIVT3', 'WEGE3', 'YDUQ3'
 ]
 
 def get_candles(symbol, time_frame = 252):
@@ -96,7 +98,7 @@ def print_analisys_result():
         if result:
             results.append(result)
 
-    file_name = 'robot_analysis.csv'
+    file_name = 'robot_analysis.txt'
 
     with open(file_name, mode='w', encoding='utf-8') as file:
 

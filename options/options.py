@@ -44,6 +44,7 @@ def get_expiration_time(option):
     expiration_date = datetime.fromtimestamp(expiration_time, tz=utc)
     current_date = datetime.now(tz=utc)
     difference_in_days = (expiration_date - current_date).days
-    difference_in_years = difference_in_days / 365.25
+    days_without_operation = difference_in_days % 7
+    difference_in_years = (20) / 252
 
     return difference_in_years

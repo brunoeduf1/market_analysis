@@ -14,7 +14,7 @@ print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('PETR4'))
 #print_symbol_analisys('GOLL4')
-#get_players_positions('PETRI416')
+#get_players_positions('PETR4')
 
 price = call_option_price('PETR4','PETRI416')
 print(price)

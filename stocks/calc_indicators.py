@@ -14,7 +14,7 @@ def d2(S, K, T, sigma):
 
 def call_option_price(symbol, option):
     S = get_symbol_price(symbol)
-    K =  get_options_info(option)['strike']
+    K = get_options_info(option)['strike']
     T = get_expiration_time(option)
     sigma = calc_historic_vol(symbol)
 
@@ -25,7 +25,7 @@ def call_option_price(symbol, option):
 
 def put_option_price(symbol, option):
     S = get_symbol_price(symbol)
-    K =  get_options_info(option)['strike']
+    K = get_options_info(option)['strike']
     T = get_expiration_time(option)
     sigma = calc_historic_vol(symbol)
 
@@ -35,10 +35,10 @@ def put_option_price(symbol, option):
     return put_price
 
 def calc_historic_vol(symbol, period=252):
-    stocks = get_candles(symbol, 252)
+    stocks = get_candles(symbol, 370)
     prices = stocks['close']
-    returns = np.log(prices / prices.shift(1))
-    volatility = returns.std() * np.sqrt(period)
+    returns = np.sum((prices - prices.shift(1)).dropna())
+    volatility = np.sqrt((returns / (period)))
     return volatility
 
 def get_symbol_price(symbol):
