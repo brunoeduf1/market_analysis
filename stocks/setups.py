@@ -136,6 +136,7 @@ def setup_PC(data):
     # Setup PC de Buy
     data['setup_PC_buy'] = (
         (data['SMA21'] > data['SMA21'].shift(1)) &
+        (data['low'].shift(1) > data['SMA21'].shift(1)) &
         (data['low'] <= data['SMA21']) &
         (data['high'] >= data['SMA21'])
     )
@@ -143,6 +144,7 @@ def setup_PC(data):
     # Setup PC de Sell
     data['setup_PC_sell'] = (
         (data['SMA21'] < data['SMA21'].shift(1)) &
+        (data['high'].shift(1) < data['SMA21'].shift(1)) &
         (data['low'] <= data['SMA21']) &
         (data['high'] >= data['SMA21'])
     )

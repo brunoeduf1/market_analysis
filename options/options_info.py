@@ -3,7 +3,6 @@ import pytz
 import MetaTrader5 as mt5
 
 def get_options_list(symbol):
-    
     symbol_options = symbol[:-1]
     ru_symbols=mt5.symbols_get(symbol_options)
     print(len(ru_symbols))
@@ -12,7 +11,6 @@ def get_options_list(symbol):
     print()
 
 def get_options_info(symbol):
-
     symbol_info=mt5.symbol_info(symbol)
     
     return {
@@ -21,7 +19,6 @@ def get_options_info(symbol):
     "ask": symbol_info.ask,
     "expiration_time": symbol_info.expiration_time
     }
-
 
 def identify_option_type(option_code):
 
@@ -38,13 +35,26 @@ def identify_option_type(option_code):
         return "Código inválido"
 
 def get_expiration_time(option):
+    days_to_expire = get_expiration_days_without_weekend(option)
+    difference_in_years = days_to_expire / 252
 
+    return difference_in_years
+
+def get_expiration_days_without_weekend(option):
     expiration_time = get_options_info(option)['expiration_time']
     utc = pytz.UTC
     expiration_date = datetime.fromtimestamp(expiration_time, tz=utc)
     current_date = datetime.now(tz=utc)
     difference_in_days = (expiration_date - current_date).days
     days_without_operation = difference_in_days % 7
-    difference_in_years = (20) / 252
+    days_to_expire = difference_in_days - days_without_operation
 
-    return difference_in_years
+    return days_to_expire
+
+def get_expiration_days(option):
+    expiration_time = get_options_info(option)['expiration_time']
+    utc = pytz.UTC
+    expiration_date = datetime.fromtimestamp(expiration_time, tz=utc)
+    current_date = datetime.now(tz=utc)
+
+    return (expiration_date - current_date).days

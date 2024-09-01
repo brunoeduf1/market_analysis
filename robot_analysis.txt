@@ -1,30 +1,26 @@
 Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita 
-GOLL4 - PC de venda - None - None - None
-SLCE3 - 9.1 de venda, PC de venda - 0.4 - 5.59 - 18.96
-PETR4 - 9.3 de compra - 3.57 - 2.58 - 21.82
-IGTI11 - 9.1 de venda - 6.35 - 20.38 - 21.51
-ALPA4 - 9.1 de venda - 7.54 - 25.3 - 40.41
-SMAL11 - 9.1 de venda - 7.54 - 51.13 - 23.96
-HYPE3 - PC de compra - 9.52 - 24.34 - 29.08
-MGLU3 - 9.1 de venda - 9.52 - 20.27 - 60.16
-CSAN3 - 9.1 de venda - 20.24 - 63.29 - 31.73
-TIMS3 - 9.1 de compra, PC de compra - 25 - 35.95 - 20.71
-CMIG4 - 9.1 de compra - 28.97 - 17.03 - 23.98
-GOAU4 - 9.1 de venda - 35.71 - 35.91 - 22.15
-SMTO3 - PC de venda - 36.51 - 52.04 - 35.75
-BBSE3 - 9.2 de compra - 40.08 - 27.84 - 15.52
-GGBR4 - 9.2 de compra - 40.08 - 21.68 - 24.71
-RDOR3 - 9.2 de compra - 45.63 - 41.12 - 36.34
-BBAS3 - 9.1 de compra - 46.43 - 39.57 - 18.68
-CSNA3 - 9.1 de venda, PC de compra - 46.43 - 52.73 - 35.44
-PRIO3 - 9.1 de venda, PC de compra - 46.43 - 38.7 - 32.1
-EGIE3 - PC de compra - 50 - 27.76 - 15.68
-TOTS3 - 9.2 de compra - 51.98 - 50.59 - 33.89
-MULT3 - PC de compra - 52.38 - 35.33 - 26.47
-BEEF3 - 9.1 de venda - 55.56 - 44.67 - 36.8
-VIVT3 - 9.1 de venda - 72.22 - 65.18 - 20.56
-TAEE11 - PC de compra - 76.59 - 19.52 - 13.19
-USIM5 - 9.1 de venda - 80.16 - 55.27 - 36.67
-COGN3 - 9.1 de venda - 88.1 - 45.55 - 49.32
-JBSS3 - 9.1 de compra - 88.89 - 44.79 - 33.75
-CVCB3 - 9.1 de venda - 91.67 - 55.92 - 71.59
+GOLL4 - 9.1 de venda - None - None - None
+JHSF3 - 9.1 de compra - 9.52 - 26.15 - 26.33
+EGIE3 - 9.1 de compra - 13.49 - 41.59 - 17.16
+TIMS3 - PC de compra - 22.22 - 51.56 - 22.76
+BPAC11 - PC de compra - 31.35 - 29.97 - 27.44
+MRVE3 - PC de compra - 34.52 - 21.17 - 44.68
+ITUB4 - 9.2 de compra, 9.3 de compra - 34.92 - 23.01 - 18.78
+CYRE3 - PC de compra - 39.29 - 15.29 - 33.92
+YDUQ3 - PC de venda - 44.05 - 15.32 - 49.13
+DXCO3 - 9.1 de compra, PC de compra - 49.21 - 36.76 - 31.17
+ITSA4 - 9.2 de compra, 9.3 de compra - 50.4 - 26.03 - 15.43
+BBAS3 - 9.1 de venda - 52.78 - 39.4 - 18.66
+BBDC4 - 9.3 de compra - 59.92 - 32.92 - 24.05
+ECOR3 - 9.1 de compra - 61.11 - 40.9 - 36.6
+TAEE11 - 9.1 de compra - 61.11 - 19.46 - 13.18
+CSNA3 - PC de compra - 61.51 - 46.97 - 34.47
+B3SA3 - 9.1 de compra - 73.81 - 56.76 - 30.63
+IRBR3 - 9.2 de compra - 80.95 - 34.69 - 43.73
+PETZ3 - 9.1 de venda - 84.13 - 49.38 - 61.25
+JBSS3 - 9.1 de compra - 87.7 - 46.34 - 34.18
+USIM5 - PC de compra - 88.49 - 58.3 - 37.35
+BEEF3 - PC de compra - 89.29 - 50.04 - 38.03
+PCAR3 - PC de compra - 91.67 - 55.94 - 78.74
+ELET3 - 9.1 de compra - 96.03 - 59.12 - 31.93
+CPFE3 - 9.1 de compra - 98.02 - 32.32 - 22.4
