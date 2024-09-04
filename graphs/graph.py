@@ -7,23 +7,16 @@ from services.services import get_symbol_data
 from stocks.get_indicators import get_iv_1y_rank, get_iv_1y_percentile, get_iv_current
 
 def analyze_trend(data):
-
-    # Garantir que os dados estejam ordenados por data
     data.sort_values('time', inplace=True)
     data.set_index('time', inplace=True)
 
-    # Calcular médias móveis aritiméticas de 21, 80 e 200 períodos
     data['SMA21'] = SMAIndicator(data['close'], window=21).sma_indicator()
     data['SMA80'] = SMAIndicator(data['close'], window=80).sma_indicator()
     data['SMA200'] = SMAIndicator(data['close'], window=200).sma_indicator()
-
-    # Calcular média exponencial de 9 períodos
     data['EMA9'] =  EMAIndicator(data['close'], window=9).ema_indicator()
 
-    # Calcular a media de 21 no volume
     data['SMA21_vol'] = SMAIndicator(data['real_volume'], window=21).sma_indicator()
 
-    # Função para determinar a tendência
     def determine_trend(df):
         if df['close'].iloc[-1] > df['EMA9'].iloc[-1] > df['SMA21'].iloc[-1] > df['SMA80'].iloc[-1]:
             return 'ALTA'
@@ -56,7 +49,6 @@ def plot_graph(symbol, data, trend_result):
         mpf.make_addplot(data_last_3_months['SMA21_vol'], panel=1, color='yellow', width=1)
     ]
 
-    # Verificar se a coluna "real_volume" está presente no DataFrame
     if 'real_volume' in data_last_3_months.columns:
         volume = True
         ylabel_lower = 'Volume'

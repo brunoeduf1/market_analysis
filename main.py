@@ -13,14 +13,14 @@ initialize()
 #plot_symbol_graph('VIVT3')
 #print_analisys_result()
 #run_machine_learning('VALE3')
-#print(get_candles('PETR4'))
+print(get_candles('GOAU4'))
 #print_symbol_analisys('GOLL4')
 #get_players_positions('PETR4')
 
 #price = get_option_fair_price('PETR4','PETRU416')
 #print(price)
 
-greeks = calc_greeks('PETR4','PETRU416')
-print(greeks)
+#greeks = calc_greeks('PETR4','PETRU416')
+#print(greeks)
 
 mt5.shutdown()
