@@ -36,11 +36,12 @@ def get_options_by_price(symbol, expiration, min_price, max_price):
         return []
     
     options = []
+
     for option in options_list:
         try:
             price = double(get_symbol_price(option.name))
             if double(min_price) <= price <= double(max_price):
-                    options.append(option)
+                options.append(option)
 
         except IndexError:
             print(f"Índice fora do limite ao acessar o preço para a opção {option.name}")
@@ -61,7 +62,8 @@ def get_options_info(symbol):
     "strike": symbol_info.option_strike,
     "bid": symbol_info.bid,
     "ask": symbol_info.ask,
-    "expiration_time": symbol_info.expiration_time
+    "expiration_time": symbol_info.expiration_time,
+    "name": symbol_info.name
     }
 
 def identify_option_type(option):
@@ -74,6 +76,15 @@ def identify_option_type(option):
     if letter_type in "ABCDEFGHIJKL":
         return "call"
     elif letter_type in "MNOPQRSTUVWX":
+        return "put"
+    else:
+        return "Código inválido"
+
+def identify_option_type_by_expiration(expiration):
+
+    if expiration in "ABCDEFGHIJKL":
+        return "call"
+    elif expiration in "MNOPQRSTUVWX":
         return "put"
     else:
         return "Código inválido"
@@ -111,3 +122,115 @@ def get_symbol_price(symbol):
     last_strike = stocks['close'].iloc[-1]
 
     return last_strike
+
+def get_ATM_options(symbol, expiration):
+    
+    symbol_price = get_symbol_price(symbol)
+    options_list = get_options_list(symbol, expiration)
+    options_list_info = []
+
+    for option in options_list:
+        options_list_info.append(get_options_info(option.name))
+
+    strike_below = None
+    option_name_below = ''
+
+    strike_above = None
+    option_name_above = ''
+    
+    for option in options_list_info:
+        if option['strike'] <= symbol_price:
+            strike_below = option['strike']
+            option_name_below = option['name']
+        elif option['strike'] > symbol_price and strike_above is None:
+            strike_above = option['strike']
+            option_name_above = option['name']
+            break
+    
+    return {
+        'option_name_below': option_name_below,
+        'strike_below': strike_below,
+        'option_name_above': option_name_above,
+        'strike_above': strike_above
+    }
+
+def get_ITM_options(symbol, expiration):
+
+    option_type = identify_option_type_by_expiration(expiration)
+
+    symbol_price = get_symbol_price(symbol)
+    options_list = get_options_list(symbol, expiration)
+    
+    options_list_info = []
+
+    for option in options_list:
+        options_list_info.append(get_options_info(option.name))
+    
+    itm_options = []
+
+    if option_type == 'call':
+        itm_options = [
+            option for option in options_list_info 
+            if option['strike'] <= symbol_price
+        ]
+        if itm_options:
+            itm_options_sorted = sorted(itm_options, key=lambda x: x['strike'], reverse=True)
+
+    if option_type == 'put':
+        itm_options = [
+            option for option in options_list_info 
+            if option['strike'] >= symbol_price
+        ]
+        if itm_options:
+            itm_options_sorted = sorted(itm_options, key=lambda x: x['strike'])
+    
+    if itm_options_sorted:
+        itm_options_sorted = itm_options_sorted[1:]
+    
+    top_10_itm_options = itm_options_sorted[:10]
+
+    for option in top_10_itm_options:
+        print(f"Option Name: {option['name']}, Strike: {option['strike']}")
+    
+    return top_10_itm_options
+
+def get_OTM_options(symbol, expiration):
+
+    option_type = identify_option_type_by_expiration(expiration)
+
+    symbol_price = get_symbol_price(symbol)
+    options_list = get_options_list(symbol, expiration)
+    
+    options_list_info = []
+
+    for option in options_list:
+        options_list_info.append(get_options_info(option.name))
+    
+    otm_options = []
+    otm_options_sorted = []
+
+    if option_type == 'call':
+        otm_options = [
+            option for option in options_list_info 
+            if option['strike'] >= symbol_price
+        ]
+        if otm_options:
+            otm_options_sorted = sorted(otm_options, key=lambda x: x['strike'])
+
+    if option_type == 'put':
+        otm_options = [
+            option for option in options_list_info 
+            if option['strike'] <= symbol_price
+        ]
+        if otm_options:
+            otm_options_sorted = sorted(otm_options, key=lambda x: x['strike'], reverse=True)
+    
+    if otm_options_sorted:
+        otm_options_sorted = otm_options_sorted[1:]
+
+    top_10_otm_options = otm_options_sorted[:10]
+
+    for option in top_10_otm_options:
+        print(f"Option Name: {option['name']}, Strike: {option['strike']}")
+    
+    return top_10_otm_options
