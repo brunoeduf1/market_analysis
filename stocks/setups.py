@@ -3,8 +3,10 @@
 def setup_9_1(data):
 
     data['time'] = data.index
-    data['EMA9_diff'] = data['EMA9'].diff()
     data = data.reset_index(drop=True)
+
+    data['EMA9_diff'] = data['EMA9'].diff()
+    
     
     data['setup_9_1_buy'] = False
     data['setup_9_1_sell'] = False
@@ -51,11 +53,11 @@ def setup_9_2(data):
     return data
 
 def setup_9_3(data):
+
     data['time'] = data.index
-    data['EMA9_diff'] = data['EMA9'].diff()
-    
-    # Change the index to numeric
     data = data.reset_index(drop=True)
+
+    data['EMA9_diff'] = data['EMA9'].diff()
     
     data['setup_9_3_buy'] = False
     data['setup_9_3_sell'] = False

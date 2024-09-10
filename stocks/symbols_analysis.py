@@ -39,7 +39,8 @@ def get_candles(symbol, time_frame = 252):
     )
 
     df_candles = pd.DataFrame(candles)
-    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
+    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
+    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
 
     return df_candles
 
@@ -126,7 +127,7 @@ def print_analisys_result():
                        str(result['iv_current']) + '\n')
 
 def plot_symbol_graph(symbol):
-    data = get_candles(symbol, 548)
+    data = get_candles(symbol)
     trend = analyze_trend(data)
     data = apply_setups(data)
     plot_graph(symbol, data, trend)

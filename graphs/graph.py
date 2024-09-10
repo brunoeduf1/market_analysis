@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import pytz
 from ta.trend import SMAIndicator, EMAIndicator
 import mplfinance as mpf
 from stocks.setups import check_setups
@@ -31,8 +32,14 @@ def analyze_trend(data):
 
 def plot_graph(symbol, data, trend_result):
     
+    if 'time' not in data.columns:
+        raise KeyError("A coluna 'time' não está presente no DataFrame.")
+
+    data.sort_values('time', inplace=True)
+    data.set_index('time', inplace=True)
+
     # Obter a data de três meses atrás
-    tree_months_ago = pd.Timestamp.now() - pd.DateOffset(months=3)
+    tree_months_ago = pd.Timestamp.now() - pd.DateOffset(days=90)
 
     # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses
     data_last_3_months = data.loc[tree_months_ago:]

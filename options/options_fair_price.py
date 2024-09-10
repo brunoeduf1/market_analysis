@@ -21,14 +21,14 @@ def calc_historic_vol(symbol):
     return volatility
 
 def calc_exponential_historic_vol(symbol):
-    stocks = get_candles(symbol,365)
-    prices = stocks['close']
-    returns = np.log(prices / prices.shift(1)).round(4)
-    span = 22
-    squared_returns = returns ** 2
-    exp_volatility = np.sqrt(squared_returns.ewm(span=span, adjust=False).mean() * 252).round(4)
+    df = get_candles(symbol,365)
+    df['Return'] = df['close'].pct_change()
+    lambda_ = 2 / (22 + 1)
+    df['EWMA Volatility'] = df['Return'].ewm(alpha=lambda_, adjust=False).std()
+    df['Annualized EWMA Volatility'] = df['EWMA Volatility'] * np.sqrt(252)
+    print(df[['close', 'Annualized EWMA Volatility']].tail())
 
-    return exp_volatility.iloc[-1]
+
 
 def get_option_fair_price(symbol, option):
     S = get_symbol_price(symbol)
