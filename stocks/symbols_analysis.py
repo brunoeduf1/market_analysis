@@ -21,7 +21,7 @@ symbols_list = [
     'MGLU3', 'MRFG3', 'MRVE3', 'MULT3', 'NTCO3',
     'PCAR3', 'PETR4', 'PETZ3', 'PRIO3', 'QUAL3',
     'RAIL3', 'RAIZ4', 'RADL3', 'RDOR3', 'RENT3',
-    'RRRP3', 'SANB11', 'SBSP3', 'SLCE3', 'SMAL11',
+    'BRAV3', 'SANB11', 'SBSP3', 'SLCE3', 'SMAL11',
     'SMTO3', 'SUZB3', 'TAEE11', 'TIMS3', 'TOTS3',
     'UGPA3', 'USIM5', 'VBBR3', 'VALE3', 'VIVA3',
     'VIVT3', 'WEGE3', 'YDUQ3'

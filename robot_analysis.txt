@@ -1,23 +1,28 @@
 Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita 
-HAPV3 - 9.3 de compra - None - 17.03 - 40.43
-QUAL3 - 9.1 de venda - 3.97 - 73.72 - 77.12
-BRFS3 - PC de compra - 9.52 - 52.39 - 41.41
-ENEV3 - 9.1 de venda - 18.25 - 44.21 - 26.92
-MRVE3 - 9.3 de compra - 28.57 - 23.06 - 45.3
-BRKM5 - 9.1 de venda - 43.65 - 53.82 - 49.75
-BRSR6 - PC de compra - 44.05 - 30.77 - 22.96
-EGIE3 - 9.1 de venda - 62.3 - 100 - 23.9
-TIMS3 - 9.1 de venda - 63.49 - 100 - 29.49
-BHIA3 - PC de compra - 63.89 - 44.91 - 79.68
-RENT3 - 9.1 de venda - 67.46 - 30.51 - 32.03
-TAEE11 - 9.1 de venda - 69.84 - 26.58 - 14.34
-UGPA3 - 9.1 de compra - 73.81 - 39.22 - 32.94
-CPFE3 - 9.2 de compra - 80.56 - 41.31 - 25.59
-CCRO3 - 9.1 de venda - 81.35 - 61.16 - 27.77
-GGBR4 - 9.1 de compra - 82.94 - 35.41 - 26.8
-CSNA3 - PC de venda - 87.7 - 85.87 - 41.22
-EQTL3 - 9.1 de venda - 90.08 - 32.22 - 27.24
-MULT3 - 9.1 de venda - 90.48 - 59.01 - 30.78
-VIVT3 - 9.2 de compra - 91.27 - 100 - 30.4
-IRBR3 - 9.1 de venda - 98.41 - 30.16 - 42.16
-MRFG3 - 9.1 de venda - 98.41 - 67.04 - 46.75
+BRFS3 - 9.2 de venda - 0.79 - 51.73 - 41.2
+LWSA3 - 9.1 de compra - 3.17 - None - None
+AZZA3 - 9.1 de compra - 6.75 - 28.67 - 33.1
+CYRE3 - 9.1 de compra - 11.9 - 7 - 32.71
+RAIZ4 - 9.1 de compra - 13.1 - 26.19 - 29.93
+SMTO3 - 9.2 de venda - 20.63 - None - None
+CMIG4 - 9.1 de compra - 35.32 - 22.38 - 25.34
+VBBR3 - PC de venda - 37.7 - 8.8 - 27.26
+TOTS3 - 9.1 de compra - 45.24 - 35 - 30.3
+SMAL11 - 9.1 de compra, PC de venda - 47.62 - 41.17 - 21.5
+EZTC3 - 9.1 de compra - 55.16 - None - None
+KLBN11 - 9.1 de compra - 56.75 - 25.44 - 20.4
+CPFE3 - 9.1 de compra - 59.13 - 19.36 - 17.8
+CSAN3 - 9.1 de compra - 65.87 - 24.45 - 26.47
+HYPE3 - 9.1 de compra - 67.46 - 77.31 - 37.09
+TIMS3 - 9.1 de compra - 80.56 - 27.77 - 19.55
+PRIO3 - 9.1 de compra - 82.54 - 44.02 - 32.99
+IGTI11 - 9.1 de compra, PC de venda - 83.33 - 22.48 - 21.93
+CSNA3 - 9.1 de compra - 84.13 - 38.15 - 34.76
+ECOR3 - 9.1 de compra, PC de venda - 84.13 - None - None
+CVCB3 - 9.1 de compra - 90.87 - 80.79 - 83.18
+BRKM5 - 9.1 de compra - 91.27 - 67.57 - 54.27
+DXCO3 - 9.1 de compra - 94.05 - None - None
+USIM5 - 9.1 de compra - 94.05 - 83.36 - 42.98
+BOVA11 - 9.1 de compra - 97.62 - 65.26 - 23.26
+CPLE6 - 9.1 de compra - 98.02 - 31.68 - 21.85
+AZUL4 - 9.1 de compra - 99.6 - 100 - 173.89
