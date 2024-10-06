@@ -39,8 +39,8 @@ def get_candles(symbol, time_frame = 252):
     )
 
     df_candles = pd.DataFrame(candles)
-    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
-    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
+    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
+    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
 
     return df_candles
 
@@ -108,6 +108,7 @@ def print_analisys_result():
         results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
         print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
 
+        file.write('Dados de volatilidade atualizados em: ' + str(convert_time_zone(time).strftime('%d/%m/%Y às %H:%M:%S')) + '\n')
         file.write('Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita \n')
         for result in results:
 

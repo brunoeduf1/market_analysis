@@ -132,26 +132,29 @@ def get_ATM_options(symbol, expiration):
     for option in options_list:
         options_list_info.append(get_options_info(option.name))
 
-    strike_below = None
-    option_name_below = ''
+    options_below = sorted(
+        (option for option in options_list_info if option['strike'] <= symbol_price),
+        key=lambda option: abs(option['strike'] - symbol_price)
+    )
 
-    strike_above = None
-    option_name_above = ''
-    
-    for option in options_list_info:
-        if option['strike'] <= symbol_price:
-            strike_below = option['strike']
-            option_name_below = option['name']
-        elif option['strike'] > symbol_price and strike_above is None:
-            strike_above = option['strike']
-            option_name_above = option['name']
-            break
+    strikes_below = [option['strike'] for option in options_below[:2]]
+    options_names_below = [option['name'] for option in options_below[:2]]
+
+    # Ordenar opções acima do preço do ativo pela diferença absoluta do strike para o preço do ativo
+    options_above = sorted(
+        (option for option in options_list_info if option['strike'] > symbol_price),
+        key=lambda option: abs(option['strike'] - symbol_price)
+    )
+
+    # Selecionar os dois strikes acima mais próximos
+    strikes_above = [option['strike'] for option in options_above[:2]]
+    options_names_above = [option['name'] for option in options_above[:2]]
     
     return {
-        'option_name_below': option_name_below,
-        'strike_below': strike_below,
-        'option_name_above': option_name_above,
-        'strike_above': strike_above
+        'options_names_below': options_names_below,
+        'strikes_below': strikes_below,
+        'options_names_above': options_names_above,
+        'strikes_above': strikes_above
     }
 
 def get_ITM_options(symbol, expiration):

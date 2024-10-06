@@ -14,13 +14,15 @@ def setup_9_1(data):
     # Setup 9.1 Buy
     data['setup_9_1_buy'] = (
         (data['EMA9_diff'].shift(1) < 0) & 
-        (data['EMA9_diff'] > 0)
+        (data['EMA9_diff'] > 0) &
+        (data['SMA21'] > data['SMA21'].shift(1))
     )
     
     # Setup 9.1 Sell
     data['setup_9_1_sell'] = (
         (data['EMA9_diff'].shift(1) > 0) & 
-        (data['EMA9_diff'] < 0)
+        (data['EMA9_diff'] < 0) &
+        (data['SMA21'] < data['SMA21'].shift(1))
     )
     
     data = data.set_index('time')

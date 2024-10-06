@@ -58,18 +58,13 @@ def calc_exponential_historic_vol4(symbol):
     print(f"Volatilidade Anualizada EWMA (22 dias): {current_volatility:.2%}")
 
 def calc_exponential_historic_vol5(symbol):
-    df = get_candles(symbol,30)
-    df['previous_close'] = df['close'].shift(1)
-    df['high_low'] = df['high'] - df['low']
-    df['high_previous_close'] = abs(df['high'] - df['previous_close'])
-    df['low_previous_close'] = abs(df['low'] - df['previous_close'])
-    df['tr'] = df[['high_low', 'high_previous_close', 'low_previous_close']].max(axis=1)
-    df['atr'] = df['tr'].ewm(span=21, adjust=False).mean()
-    volatility = df['atr'].iloc[-1]
+    data = get_candles(symbol,365)
+    log_returns = np.log(data['close'] / data['close'].shift(1))
+    volatility = log_returns.rolling(window=30).std() * np.sqrt(252)
+    hvi = volatility.rolling(window=21).mean()
 
-    return volatility
+    return hvi
 
-    
 
 def get_option_fair_price(symbol, option):
     S = get_symbol_price(symbol)

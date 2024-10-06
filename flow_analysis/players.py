@@ -13,12 +13,12 @@ def get_players_positions(symbol):
 
 def get_history_deals(symbol):
 
-    from_date=datetime(2024,9,3)
+    from_date=datetime(2023,9,13)
     to_date=datetime.now()
 
-    deals=mt5.history_deals_get(from_date, to_date, symbol=symbol)
-    if deals==None:
-        print("No deals, error code={}".format(mt5.last_error()))
-    elif len(deals)> 0:
-        print("history_deals_get({}, {},)={}".format(from_date,to_date,len(deals)))
+    deals=mt5.history_deals_total(from_date, to_date)
+    if deals>0:
+        print("Total deals=",deals)
+    else:
+        print("Deals not found in history")
     

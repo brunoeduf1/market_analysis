@@ -10,25 +10,25 @@ from configs.Initialize_mt5 import initialize
 initialize()
 
 #plot_symbol_graph('ENEV3')
-#print_analisys_result()
+print_analisys_result()
 #run_machine_learning('VALE3')
 #print(get_candles('ENEV3'))
-#print_symbol_analisys('ENEV3')
+#print_symbol_analisys('BHIA3')
 #print(get_option_fair_price('ABEV3','ABEVU135'))
 #print(calc_greeks('ABEV3','ABEVU135'))
-#get_players_positions('PETR4')
-#get_history_deals('PETR4')
+#get_players_positions('BBDCU158')
+#get_history_deals('BBDCU158')
 # options = get_options_by_price('ABEV3','U', 0.10, 0.50)
 # for option in options:
 #     print(option.name + ': ' + str(get_symbol_price(option.name)))
 
-# print(get_ATM_options('ABEV3', 'U')['strike_above'])
-# print(get_ATM_options('ABEV3', 'U')['strike_below'])
+#print(get_ATM_options('ABEV3', 'U')['strikes_above'])
+#print(get_ATM_options('ABEV3', 'U')['strikes_below'])
 
 #get_ITM_options('ABEV3','I')
 #get_OTM_options('ABEV3','U')
 
-print(calc_exponential_historic_vol5('BBDC4'))
+#print(calc_exponential_historic_vol5('BBDC4'))
 # print(get_option_fair_price('ABEV3', 'ABEVI130'))
 # print(calc_greeks('ABEV3','ABEVU135'))
 
