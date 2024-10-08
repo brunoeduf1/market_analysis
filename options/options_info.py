@@ -5,7 +5,6 @@ import MetaTrader5 as mt5
 from stocks.symbols_analysis import get_candles
 
 def get_options_list(option, expiration):
-
     if len(option) == 5:
         symbol_options = option[:-1]
     elif len(option) == 6:
@@ -25,7 +24,9 @@ def get_options_list(option, expiration):
     for option in ru_symbols:
         if len(option.name) >= 5 and option.name[4] == expiration:
             if 'W' not in option.name[5:]:
-                options_list.append(option)
+                # Obter informações detalhadas da opção
+                option_info = get_options_info(option.name)
+                options_list.append(option_info)
 
     return options_list
 
@@ -63,7 +64,8 @@ def get_options_info(symbol):
     "bid": symbol_info.bid,
     "ask": symbol_info.ask,
     "expiration_time": symbol_info.expiration_time,
-    "name": symbol_info.name
+    "name": symbol_info.name,
+    "price": get_symbol_price(symbol)
     }
 
 def identify_option_type(option):

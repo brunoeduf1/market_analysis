@@ -1,20 +1,20 @@
-Dados de volatilidade atualizados em: 04/10/2024 às 18:54:28
+Dados de volatilidade atualizados em: 07/10/2024 às 19:45:00
 Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita 
-GOLL4 - 9.2 de venda, 9.3 de venda, PC de venda - None - None - None
-BRAV3 - 9.3 de venda - 8.33 - 100 - 55.83
-ALOS3 - PC de venda - 29.76 - 26.9 - 23.41
-KLBN11 - PC de venda - 38.89 - 15.16 - 18.82
-RAIL3 - 9.2 de venda - 58.73 - 31.79 - 27.48
-RDOR3 - 9.2 de venda - 64.29 - 43.59 - 37.02
-DXCO3 - 9.2 de compra - 68.65 - 39.39 - 31.61
-ABEV3 - 9.2 de compra - 72.22 - 47.46 - 24.46
-IGTI11 - PC de venda - 72.62 - 84.47 - 34.14
-EQTL3 - 9.2 de venda - 74.21 - 29.52 - 26.43
-BRKM5 - 9.1 de compra - 81.75 - 42.68 - 46.09
-CYRE3 - 9.3 de compra, PC de venda - 83.33 - 38.61 - 37.32
-BPAC11 - 9.2 de venda - 92.06 - 45.24 - 29.88
-YDUQ3 - 9.1 de compra - 92.06 - 26.9 - 55.25
-GGBR4 - 9.1 de compra - 93.65 - 71.42 - 32.28
-GOAU4 - 9.1 de compra - 94.44 - 78.9 - 28.16
-USIM5 - 9.1 de compra, PC de compra - 94.44 - 97.02 - 46.05
-VALE3 - 9.2 de compra - 97.62 - 71.37 - 27.98
+LWSA3 - 9.2 de venda - 0.4 - 3.9 - 42.31
+SBSP3 - 9.2 de venda - 10.32 - 20.99 - 25.07
+SLCE3 - PC de compra - 23.02 - 32.34 - 23.3
+PCAR3 - PC de venda - 45.24 - 28.03 - 62.09
+IGTI11 - PC de venda - 45.63 - 36.77 - 24.71
+CPLE6 - 9.2 de venda - 52.38 - 35.07 - 22.5
+TAEE11 - PC de venda - 76.59 - 97.11 - 25.83
+VIVA3 - PC de venda - 86.51 - 33.76 - 32.77
+JBSS3 - 9.1 de venda, PC de venda - 87.7 - 50.02 - 35.2
+VIVT3 - PC de venda - 88.1 - 64.6 - 20.84
+ITUB4 - 9.2 de venda - 92.06 - 49.14 - 20.87
+COGN3 - 9.3 de venda - 93.25 - 57.27 - 53.6
+RENT3 - 9.1 de venda, PC de venda - 93.65 - 60.99 - 40.67
+WEGE3 - PC de compra - 95.63 - 62.45 - 25.7
+BOVA11 - PC de venda - 98.02 - 37.95 - 17.9
+BRAP4 - 9.1 de compra - 98.81 - 72.24 - 27.8
+CSAN3 - PC de compra - 98.81 - 100 - 38.47
+CSNA3 - 9.1 de compra - 99.6 - 100 - 45.78

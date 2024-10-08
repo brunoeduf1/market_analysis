@@ -13,12 +13,34 @@ def get_players_positions(symbol):
 
 def get_history_deals(symbol):
 
-    from_date=datetime(2023,9,13)
+    from_date=datetime(2024,10,7)
     to_date=datetime.now()
 
-    deals=mt5.history_deals_total(from_date, to_date)
-    if deals>0:
-        print("Total deals=",deals)
+    deals = mt5.history_deals_get(from_date, to_date, symbol=symbol)
+
+    if deals is None:
+        print("Nenhum negócio encontrado para o ativo", symbol)
     else:
-        print("Deals not found in history")
+        total_deals = len(deals)
+        print(f"Número total de negócios para {symbol}: {total_deals}")
+
+def get_history_orders(symbol):
+    from_date=datetime(2024,10,3)
+    to_date=datetime.now()
+    history_orders=mt5.history_orders_get(from_date, to_date, symbol=symbol)
+    if history_orders is None:
+        print("Total history orders=",symbol)
+    else:
+        print("Orders not found in history")
+
+def get_orders(symbol):
+    orders=mt5.orders_get(symbol=symbol)
+    if orders is None:
+        print("No orders, error code={}".format(mt5.last_error()))
+    else:
+        print("Total orders:",len(orders))
+        # display all active orders
+        for order in orders:
+            print(order)
+    print()
     
