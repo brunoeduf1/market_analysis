@@ -14,3 +14,5 @@ def initialize():
         exit()
     else:
         print(f"Login bem-sucedido: {account_info}")
+
+    return "Inicialização bem-sucedida!"

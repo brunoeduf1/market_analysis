@@ -1,20 +1,25 @@
-Dados de volatilidade atualizados em: 07/10/2024 às 19:45:00
+Dados de volatilidade atualizados em: 18/10/2024 às 18:45:39
 Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita 
-LWSA3 - 9.2 de venda - 0.4 - 3.9 - 42.31
-SBSP3 - 9.2 de venda - 10.32 - 20.99 - 25.07
-SLCE3 - PC de compra - 23.02 - 32.34 - 23.3
-PCAR3 - PC de venda - 45.24 - 28.03 - 62.09
-IGTI11 - PC de venda - 45.63 - 36.77 - 24.71
-CPLE6 - 9.2 de venda - 52.38 - 35.07 - 22.5
-TAEE11 - PC de venda - 76.59 - 97.11 - 25.83
-VIVA3 - PC de venda - 86.51 - 33.76 - 32.77
-JBSS3 - 9.1 de venda, PC de venda - 87.7 - 50.02 - 35.2
-VIVT3 - PC de venda - 88.1 - 64.6 - 20.84
-ITUB4 - 9.2 de venda - 92.06 - 49.14 - 20.87
-COGN3 - 9.3 de venda - 93.25 - 57.27 - 53.6
-RENT3 - 9.1 de venda, PC de venda - 93.65 - 60.99 - 40.67
-WEGE3 - PC de compra - 95.63 - 62.45 - 25.7
-BOVA11 - PC de venda - 98.02 - 37.95 - 17.9
-BRAP4 - 9.1 de compra - 98.81 - 72.24 - 27.8
-CSAN3 - PC de compra - 98.81 - 100 - 38.47
-CSNA3 - 9.1 de compra - 99.6 - 100 - 45.78
+GOLL4 - 9.1 de venda - None - None - None
+BRAV3 - 9.1 de venda - 4.37 - 60.68 - 49.53
+SBSP3 - 9.1 de venda - 5.56 - 8.35 - 22.09
+ALOS3 - 9.1 de venda - 6.75 - 19.85 - 21.88
+IGTI11 - 9.2 de venda, PC de venda - 13.89 - 61.37 - 26.13
+SMAL11 - 9.1 de venda - 23.81 - 24.01 - 20.89
+BRSR6 - PC de venda - 25.79 - 37 - 25.39
+LREN3 - 9.1 de venda - 31.35 - 26.39 - 40.09
+TIMS3 - 9.3 de compra - 36.11 - 26.29 - 19.36
+EQTL3 - 9.1 de venda - 36.51 - 25.84 - 25.33
+BBAS3 - 9.1 de venda, PC de venda - 40.48 - 37.85 - 18.29
+CYRE3 - 9.1 de venda - 43.65 - 11.82 - 33.04
+RAIL3 - 9.1 de venda - 46.83 - 39.5 - 28.96
+UGPA3 - PC de venda - 56.35 - 48.58 - 29.61
+MULT3 - 9.1 de venda - 58.73 - 35.77 - 26.55
+BOVA11 - PC de venda - 67.46 - 38.26 - 17.96
+EMBR3 - 9.2 de compra - 88.1 - 52.95 - 41.14
+WEGE3 - PC de compra - 88.49 - 67.53 - 26.64
+USIM5 - PC de venda - 89.29 - 79.58 - 42.37
+RENT3 - 9.1 de venda - 90.48 - 48.22 - 37.05
+RADL3 - 9.1 de venda - 91.27 - 45.8 - 30.81
+BEEF3 - 9.2 de venda - 91.67 - 71.77 - 43
+GGBR4 - 9.2 de venda - 92.46 - 60.97 - 30.69

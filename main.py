@@ -2,19 +2,36 @@ import MetaTrader5 as mt5
 from flow_analysis.players import get_history_deals, get_history_orders, get_orders, get_players_positions
 from options.greeks import calc_greeks
 from options.options_fair_price import calc_exponential_historic_vol, calc_exponential_historic_vol2, calc_exponential_historic_vol3, calc_exponential_historic_vol4, calc_exponential_historic_vol5, calc_historic_vol, get_option_fair_price, get_symbol_price
-from options.strategies import tree_point_box
+from options.strategies import box_spread, broken_wing_butterfly, butterfly_spread, conversion_reversal, iron_condor, straddle_arbitrage, synthetic_arbitrage, tree_point_box
 from stocks.symbols_analysis import get_candles, print_symbol_analisys, print_analisys_result, plot_symbol_graph
 from machine_learning.predictor import run_machine_learning
 from options.options_info import get_ATM_options, get_ITM_options, get_OTM_options, get_options_by_price, get_options_list, get_options_info
 from configs.Initialize_mt5 import initialize
+import argparse
 
 initialize()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Chame funções do terminal.")
+    parser.add_argument("funcao", type=str, help="Nome da função a ser chamada")
+    parser.add_argument("args", nargs="*", help="Argumentos para a função")
+
+    args = parser.parse_args()
+
+    if args.funcao == "initialize":
+        print(initialize(*args.args))
+    if args.funcao == "analisys":
+        print_analisys_result(*args.args)
+    else:
+        print("Função não reconhecida.")
+
+# python main.py print_analisys_result
 
 #plot_symbol_graph('ENEV3')
 #print_analisys_result()
 #run_machine_learning('VALE3')
-#print(get_candles('ENEV3'))
-#print_symbol_analisys('BHIA3')
+#print(get_candles('PETR4'))
+#print_symbol_analisys('PETR4')
 #print(get_option_fair_price('ABEV3','ABEVU135'))
 #print(calc_greeks('ABEV3','ABEVU135'))
 #get_players_positions('BBDCU158')
@@ -36,6 +53,16 @@ initialize()
 #print(calc_exponential_historic_vol5('BBDC4'))
 # print(get_option_fair_price('ABEV3', 'ABEVI130'))
 # print(calc_greeks('ABEV3','ABEVU135'))
-print(tree_point_box('PETR4','K', 'W'))
+
+#tree_point_box('BOVA11','K', 'W')
+#box_spread('BOVA11','K', 'W')
+#broken_wing_butterfly('BOVA11','K')
+#conversion_reversal('BOVA11','K', 'W')
+#synthetic_arbitrage('BOVA11','K', 'W')
+#iron_condor('BOVA11','K', 'W')
+
+#butterfly_spread('VALE3','K')
+
+
 
 mt5.shutdown()

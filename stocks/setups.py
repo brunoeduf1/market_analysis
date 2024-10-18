@@ -39,14 +39,12 @@ def setup_9_2(data):
     # Setup 9.2 Buy
     data['setup_9_2_buy'] = (
         (data['EMA9'] > data['EMA9'].shift(1)) & 
-        (data['close'].shift(1) < data['open'].shift(1)) & 
         (data['close'] < data['low'].shift(1))
     )
     
     # Setup 9.2 de Sell
     data['setup_9_2_sell'] = (
         (data['EMA9'] < data['EMA9'].shift(1)) & 
-        (data['close'].shift(1) > data['open'].shift(1)) & 
         (data['close'] > data['high'].shift(1))
     )
 
