@@ -67,29 +67,8 @@ def setup_9_3(data):
         (data['EMA9'] > data['EMA9'].shift(1)) &
         (
             ((data['close'].shift(2) > data['open'].shift(2)) &  # Candle de alta [-2]
-             (data['close'].shift(1) < data['open'].shift(1)) &  # Candle de baixa [-1]
-             (data['open'].shift(1) <= data['close'].shift(2)) &
-             (data['close'].shift(1) >= data['open'].shift(2)) &
-             (
-                 ((data['close'] < data['open']) &  # Candle de baixa [0]
-                  (data['open'] <= data['close'].shift(2)) &
-                  (data['close'] >= data['open'].shift(2))) |
-                 ((data['close'] > data['open']) &  # Candle de alta [0]
-                  (data['close'] <= data['close'].shift(2)) &
-                  (data['open'] >= data['open'].shift(2)))
-             )) |
-            ((data['close'].shift(2) > data['open'].shift(2)) &  # Candle de alta [-2]
-             (data['close'].shift(1) > data['open'].shift(1)) &  # Candle de alta [-1]
-             (data['close'].shift(1) <= data['close'].shift(2)) &
-             (data['open'].shift(1) >= data['open'].shift(2)) &
-             (
-                 ((data['close'] > data['open']) &  # Candle de alta [0]
-                  (data['close'] <= data['close'].shift(2)) &
-                  (data['open'] >= data['open'].shift(2))) |
-                 ((data['close'] < data['open']) &  # Candle de baixa [0]
-                  (data['open'] <= data['close'].shift(2)) &
-                  (data['close'] >= data['open'].shift(2)))
-             ))
+             (data['close'].shift(1) < data['close'].shift(2)) &  # Candle de baixa [-1]
+             (data['close'] < data['close'].shift(2)))
         )
     )
     
@@ -98,29 +77,8 @@ def setup_9_3(data):
         (data['EMA9'] < data['EMA9'].shift(1)) &
         (
             ((data['close'].shift(2) < data['open'].shift(2)) &  # Candle de baixa [-2]
-             (data['close'].shift(1) < data['open'].shift(1)) &  # Candle de baixa [-1]
-             (data['open'].shift(1) <= data['open'].shift(2)) &
-             (data['close'].shift(1) >= data['close'].shift(2)) &
-             (
-                 ((data['close'] < data['open']) &  # Candle de baixa [0]
-                  (data['open'] <= data['open'].shift(2)) &
-                  (data['close'] >= data['close'].shift(2))) |
-                 ((data['close'] > data['open']) &  # Candle de alta [0]
-                  (data['close'] <= data['open'].shift(2)) &
-                  (data['open'] >= data['close'].shift(2)))
-             )) |
-            ((data['close'].shift(2) < data['open'].shift(2)) &  # Candle de baixa [-2]
-             (data['close'].shift(1) > data['open'].shift(1)) &  # Candle de alta [-1]
-             (data['close'].shift(1) <= data['open'].shift(2)) &
-             (data['open'].shift(1) >= data['close'].shift(2)) &
-             (
-                 ((data['close'] > data['open']) &  # Candle de alta [0]
-                  (data['close'] <= data['open'].shift(2)) &
-                  (data['open'] >= data['close'].shift(2))) |
-                 ((data['close'] < data['open']) &  # Candle de baixa [0]
-                  (data['open'] <= data['open'].shift(2)) &
-                  (data['close'] >= data['close'].shift(2)))
-             ))
+             (data['close'].shift(1) > data['close'].shift(2)) &  # Candle de baixa [-1]
+             (data['close'] > data['close'].shift(2)))
         )
     )
 

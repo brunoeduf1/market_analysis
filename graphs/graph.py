@@ -30,19 +30,25 @@ def analyze_trend(data):
 
     return trend_result
 
-def plot_graph(symbol, data, trend_result):
-    
-    if 'time' not in data.columns:
-        raise KeyError("A coluna 'time' não está presente no DataFrame.")
+def plot_graph(symbol, data, trend):
 
-    data.sort_values('time', inplace=True)
-    data.set_index('time', inplace=True)
-
-    # Obter a data de três meses atrás
     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(days=90)
+    print(f"Data três meses atrás: {tree_months_ago}")
 
     # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses
-    data_last_3_months = data.loc[tree_months_ago:]
+    data_last_3_months = data.loc[data.index >= tree_months_ago]
+
+    # Verifique se o DataFrame filtrado está vazio
+    if data_last_3_months.empty:
+        print("Nenhum dado disponível para os últimos três meses.")
+        return
+
+    # Verifique valores nulos
+    print(data_last_3_months.isnull().sum())
+    data_last_3_months.dropna(inplace=True)
+
+    # Verifique tipos de dados
+    print(data_last_3_months.dtypes)
 
     # Configurar o estilo dos candles
     mc = mpf.make_marketcolors(up='g', down='r', edge='i', wick='i', volume='in', ohlc='i')
@@ -90,27 +96,5 @@ def plot_graph(symbol, data, trend_result):
         ax.annotate('', xy=(len(data_last_3_months)-1, min_price), xytext=(len(data_last_3_months)-1, min_price - (min_price * 0.02)),
                     arrowprops=dict(facecolor='red', shrink=0.05, width=2, headwidth=8), label='Entrada VENDA')
     
-    stocks = get_symbol_data()
-    iv_rank = get_iv_1y_rank(stocks, symbol)
-    iv_percentil = get_iv_1y_percentile(stocks, symbol)
-    iv_current = get_iv_current(stocks, symbol)
-
-    textstr = (
-        'Tendência: ' + trend_result + '\n' +
-        check_setups(data) + '\n' +
-        'IV Rank: ' + str(iv_rank) + '\n' +
-        'IV Percentil: ' + str(iv_percentil) +'\n' +
-        'Vol Implicita: ' + str(iv_current)
-    )
-
-    # Adicionar um novo eixo para o texto
-    ax_text = fig.add_axes([0.05, 0.8, 0.2, 0.2], frameon=False)  # [left, bottom, width, height]
-    ax_text.axis('off')  # Desativar os eixos
-
-    props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    ax_text.text(0, 0.7, textstr, transform=ax_text.transAxes, fontsize=8, verticalalignment='center', bbox=props, ha='left')
-
     plt.show()
-
-
     

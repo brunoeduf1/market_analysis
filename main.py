@@ -11,26 +11,29 @@ import argparse
 
 initialize()
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Chame funções do terminal.")
-    parser.add_argument("funcao", type=str, help="Nome da função a ser chamada")
-    parser.add_argument("args", nargs="*", help="Argumentos para a função")
+# if __name__ == "__main__":
+#     parser = argparse.ArgumentParser(description="Chame funções do terminal.")
+#     parser.add_argument("funcao", type=str, help="Nome da função a ser chamada")
+#     parser.add_argument("args", nargs="*", help="Argumentos para a função")
 
-    args = parser.parse_args()
+#     args = parser.parse_args()
 
-    if args.funcao == "initialize":
-        print(initialize(*args.args))
-    if args.funcao == "analisys":
-        print_analisys_result(*args.args)
-    else:
-        print("Função não reconhecida.")
+#     if args.funcao == "analisys":
+#         print_analisys_result(*args.args)
+    
+#     if args.funcao == "candles":
+#         print(get_candles(*args.args))
+    
+#     if args.funcao == "graph":
+#         plot_symbol_graph(*args.args)
+
+#     else:
+#         print("Função não reconhecida.")
 
 # python main.py print_analisys_result
 
-#plot_symbol_graph('ENEV3')
-#print_analisys_result()
+plot_symbol_graph('ENEV3')
 #run_machine_learning('VALE3')
-#print(get_candles('PETR4'))
 #print_symbol_analisys('PETR4')
 #print(get_option_fair_price('ABEV3','ABEVU135'))
 #print(calc_greeks('ABEV3','ABEVU135'))

@@ -29,7 +29,7 @@ symbols_list = [
 
 def get_candles(symbol, time_frame = 252):
     
-    timezone = pytz.timezone("America/Sao_Paulo")
+    #timezone = pytz.timezone("America/Sao_Paulo")
 
     candles = mt5.copy_rates_range(
         symbol,
@@ -39,8 +39,8 @@ def get_candles(symbol, time_frame = 252):
     )
 
     df_candles = pd.DataFrame(candles)
-    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
-    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
+    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
+    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
 
     return df_candles
 
