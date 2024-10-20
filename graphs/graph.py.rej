@@ -1,0 +1,36 @@
+diff a/graphs/graph.py b/graphs/graph.py	(rejected hunks)
+@@ -30,19 +30,25 @@
+ 
+     return trend_result
+ 
+-def plot_graph(symbol, data, trend_result):
+-    
+-    if 'time' not in data.columns:
+-        raise KeyError("A coluna 'time' não está presente no DataFrame.")
++def plot_graph(symbol, data, trend):
+ 
+-    data.sort_values('time', inplace=True)
+-    data.set_index('time', inplace=True)
+-
+-    # Obter a data de três meses atrás
+     tree_months_ago = pd.Timestamp.now() - pd.DateOffset(days=90)
++    print(f"Data três meses atrás: {tree_months_ago}")
+ 
+     # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses
+-    data_last_3_months = data.loc[tree_months_ago:]
++    data_last_3_months = data.loc[data.index >= tree_months_ago]
++
++    # Verifique se o DataFrame filtrado está vazio
++    if data_last_3_months.empty:
++        print("Nenhum dado disponível para os últimos três meses.")
++        return
++
++    # Verifique valores nulos
++    print(data_last_3_months.isnull().sum())
++    data_last_3_months.dropna(inplace=True)
++
++    # Verifique tipos de dados
++    print(data_last_3_months.dtypes)
+ 
+     # Configurar o estilo dos candles
+     mc = mpf.make_marketcolors(up='g', down='r', edge='i', wick='i', volume='in', ohlc='i')

@@ -32,7 +32,7 @@ initialize()
 
 # python main.py print_analisys_result
 
-plot_symbol_graph('ENEV3')
+plot_symbol_graph('SBSP3')
 #run_machine_learning('VALE3')
 #print_symbol_analisys('PETR4')
 #print(get_option_fair_price('ABEV3','ABEVU135'))

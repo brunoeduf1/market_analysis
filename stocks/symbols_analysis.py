@@ -27,7 +27,7 @@ symbols_list = [
     'VIVT3', 'WEGE3', 'YDUQ3'
 ]
 
-def get_candles(symbol, time_frame = 252):
+def get_candles(symbol, time_frame = 548):
     
     #timezone = pytz.timezone("America/Sao_Paulo")
 
@@ -43,6 +43,7 @@ def get_candles(symbol, time_frame = 252):
     df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
 
     return df_candles
+
 
 def get_symbols_list():
     return symbols_list
