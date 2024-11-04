@@ -22,25 +22,24 @@ symbols_list = [
     'PCAR3', 'PETR4', 'PETZ3', 'PRIO3', 'QUAL3',
     'RAIL3', 'RAIZ4', 'RADL3', 'RDOR3', 'RENT3',
     'BRAV3', 'SANB11', 'SBSP3', 'SLCE3', 'SMAL11',
-    'SMTO3', 'SUZB3', 'TAEE11', 'TIMS3', 'TOTS3',
+    'SMTO3', 'SUZB3', 'SAPR11', 'TAEE11', 'TIMS3', 'TOTS3',
     'UGPA3', 'USIM5', 'VBBR3', 'VALE3', 'VIVA3',
     'VIVT3', 'WEGE3', 'YDUQ3'
 ]
 
 def get_candles(symbol, time_frame = 548):
     
-    #timezone = pytz.timezone("America/Sao_Paulo")
+    timezone = pytz.timezone("America/Sao_Paulo")
 
     candles = mt5.copy_rates_range(
         symbol,
         mt5.TIMEFRAME_D1,
-        datetime.today() - timedelta(days=time_frame), # Um ano e meio atrás
+        pd.Timestamp.now(tz=timezone) - pd.DateOffset(days=time_frame), # Um ano e meio atrás
         datetime.today(),
     )
 
     df_candles = pd.DataFrame(candles)
-    #df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
-    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s')
+    df_candles["time"] = pd.to_datetime(df_candles["time"], unit='s').dt.tz_localize('UTC').dt.tz_convert(timezone)
 
     return df_candles
 

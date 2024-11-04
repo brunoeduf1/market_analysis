@@ -32,7 +32,9 @@ def analyze_trend(data):
 
 def plot_graph(symbol, data, trend):
 
-    tree_months_ago = pd.Timestamp.now() - pd.DateOffset(days=90)
+    timezone = pytz.timezone("America/Sao_Paulo")
+
+    tree_months_ago = (pd.Timestamp.now(tz=timezone) - pd.DateOffset(days=90))
     print(f"Data três meses atrás: {tree_months_ago}")
 
     # Filtrar o DataFrame para incluir apenas os dados dos últimos 03 meses

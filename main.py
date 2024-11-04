@@ -8,31 +8,33 @@ from machine_learning.predictor import run_machine_learning
 from options.options_info import get_ATM_options, get_ITM_options, get_OTM_options, get_options_by_price, get_options_list, get_options_info
 from configs.Initialize_mt5 import initialize
 import argparse
+import os
+
+debug_mode = os.getenv('DEBUG_MODE', 'false').lower() == 'true'
 
 initialize()
 
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description="Chame funções do terminal.")
-#     parser.add_argument("funcao", type=str, help="Nome da função a ser chamada")
-#     parser.add_argument("args", nargs="*", help="Argumentos para a função")
+if not debug_mode:
+    if __name__ == "__main__":
+        parser = argparse.ArgumentParser(description="Chame funções do terminal.")
+        parser.add_argument("funcao", type=str, help="Nome da função a ser chamada")
+        parser.add_argument("args", nargs="*", help="Argumentos para a função")
 
-#     args = parser.parse_args()
+        args = parser.parse_args()
 
-#     if args.funcao == "analisys":
-#         print_analisys_result(*args.args)
-    
-#     if args.funcao == "candles":
-#         print(get_candles(*args.args))
-    
-#     if args.funcao == "graph":
-#         plot_symbol_graph(*args.args)
+        if args.funcao == "analisys":
+            print_analisys_result(*args.args)
+        elif args.funcao == "candles":
+            print(get_candles(*args.args))
+        elif args.funcao == "graph":
+            plot_symbol_graph(*args.args)
+        else:
+            print("Função não reconhecida " + args.funcao)
 
-#     else:
-#         print("Função não reconhecida.")
+#python main.py analisys
 
-# python main.py print_analisys_result
+#plot_symbol_graph('SBSP3')
 
-plot_symbol_graph('SBSP3')
 #run_machine_learning('VALE3')
 #print_symbol_analisys('PETR4')
 #print(get_option_fair_price('ABEV3','ABEVU135'))
@@ -65,7 +67,5 @@ plot_symbol_graph('SBSP3')
 #iron_condor('BOVA11','K', 'W')
 
 #butterfly_spread('VALE3','K')
-
-
 
 mt5.shutdown()
