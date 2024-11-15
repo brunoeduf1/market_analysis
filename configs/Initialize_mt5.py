@@ -9,7 +9,7 @@ def initialize():
 
     account_info = mt5.account_info()
     if account_info is None:
-        print(f"Falha ao fazer login no MetaTrader 5, código de erro: {mt5.last_error()}")
+        print(f"Falha ao recuperar dados do login no MetaTrader 5, código de erro: {mt5.last_error()}")
         mt5.shutdown()
         exit()
     else:

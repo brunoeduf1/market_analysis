@@ -105,27 +105,52 @@ def print_analisys_result():
 
     with open(file_name, mode='w', encoding='utf-8') as file:
 
+        # Ordena os resultados com base no IV Percentil
         results = sorted(results, key=lambda x: (x['iv_percentile'] is not None, x['iv_percentile']))
+        
+        # Exibe a data e hora da análise
         print('Dados obtidos em: ' + str(convert_time_zone(time).strftime('%Y-%m-%d %H:%M:%S')))
 
+        # Escreve o cabeçalho formatado no arquivo
         file.write('Dados de volatilidade atualizados em: ' + str(convert_time_zone(time).strftime('%d/%m/%Y às %H:%M:%S')) + '\n')
-        file.write('Ativo - Setup armado - IV Percentil - IV Rank - Vol Implicita \n')
-        for result in results:
+        
+        # Cabeçalho das colunas com separador |
+        header = 'Ativo | Setup armado | IV Percentil | IV Rank | Vol Implicita'
+        
+        # Linha de separação entre o cabeçalho e os dados
+        separator_line = '_' * len(header)
+        
+        # Imprime e escreve o cabeçalho e linha de separação
+        print(header)
+        print(separator_line)
+        
+        file.write(header + '\n')
+        file.write(separator_line + '\n')
 
+        # Itera pelos resultados e imprime/escreve em formato tabulado com separadores
+        for result in results:
             setups_str = ', '.join(result['setups'])
 
-            print(
-                f"{result['symbol']} - "
-                f"{setups_str} - "
-                f"IV Percentil: {result['iv_percentile']} - "
-                f"IV Rank: {result['iv_rank']} - "
-                f"Vol Implicita: {result['iv_current']}")  
+            # Formata a linha com o separador |
+            line = (
+                f"{result['symbol']} | "
+                f"{setups_str} | "
+                f"{result['iv_percentile']} | "
+                f"{result['iv_rank']} | "
+                f"{result['iv_current']}"
+            )
 
-            file.write(str(result['symbol']) + ' - ' +
-                       str(setups_str) + ' - ' +
-                       str(result['iv_percentile']) + ' - ' +
-                       str(result['iv_rank']) + ' - ' + 
-                       str(result['iv_current']) + '\n')
+            # Imprime no console com separador |
+            print(line)
+
+            # Linha de separação entre cada registro
+            print('_' * len(line))
+
+            # Escreve no arquivo com separador |
+            file.write(line + '\n')
+            
+            # Escreve a linha de separação entre os registros no arquivo
+            file.write('_' * len(line) + '\n')
 
 def plot_symbol_graph(symbol):
     data = get_candles(symbol)
